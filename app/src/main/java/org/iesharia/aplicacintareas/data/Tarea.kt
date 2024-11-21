@@ -11,3 +11,8 @@ data class Tarea( @PrimaryKey(autoGenerate = true)
                     val id_tipostareas: Int
 )
 
+@Entity(tableName = "tipostareas")
+data class TipoTarea( @PrimaryKey(autoGenerate = true)
+                  val id: Int = 0,
+                  val titulo: String
+)
