@@ -33,4 +33,10 @@ class TareasRepository(private val tareaDao: TareaDao) {
         }
     }
 
+    suspend fun deleteTarea(tarea: Tarea) {
+        withContext(Dispatchers.IO) {
+            tareaDao.deleteTarea(tarea)
+        }
+    }
+
 }
