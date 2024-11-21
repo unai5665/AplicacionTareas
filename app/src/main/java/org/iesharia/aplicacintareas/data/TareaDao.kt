@@ -15,6 +15,6 @@ import androidx.room.*
         INNER JOIN tipostareas ON Tareas.id_tipostareas = tipostareas.id
     """
     )
-   
+    suspend fun getTareasConTipos(): List<TareaConTipo>
 
 }
