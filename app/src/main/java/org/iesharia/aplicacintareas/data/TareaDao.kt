@@ -6,6 +6,7 @@ import androidx.room.*
     @Insert
     suspend fun insertarTarea(tarea: Tarea)
 
-
+    @Insert
+    suspend fun insertarTipoTarea(tipoTarea: TipoTarea)
 
 }
