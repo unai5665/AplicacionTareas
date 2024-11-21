@@ -23,4 +23,11 @@ import androidx.room.*
     @Delete
     suspend fun deleteTarea(tarea: Tarea)
 
+    data class TareaConTipo(
+        val id: Int,
+        val titulo: String,
+        val descripcion: String,
+        val tipo: String
+    )
+
 }
