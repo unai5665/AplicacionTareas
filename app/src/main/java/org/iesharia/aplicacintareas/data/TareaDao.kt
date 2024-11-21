@@ -17,4 +17,9 @@ import androidx.room.*
     )
     suspend fun getTareasConTipos(): List<TareaConTipo>
 
+    @Update
+    suspend fun updateTarea(tarea: Tarea)
+
+
+
 }
