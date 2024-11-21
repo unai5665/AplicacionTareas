@@ -27,5 +27,10 @@ class TareasRepository(private val tareaDao: TareaDao) {
             tareaDao.getTareasConTipos()
         }
     }
+    suspend fun updateTarea(tarea: Tarea) {
+        withContext(Dispatchers.IO) {
+            tareaDao.updateTarea(tarea)
+        }
+    }
 
 }
