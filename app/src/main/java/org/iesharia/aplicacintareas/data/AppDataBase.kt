@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 
 @Database(entities = [Tarea::class, TipoTarea::class], version = 1)
-abstract class DataBase : RoomDatabase() {
+abstract class AppDataBase : RoomDatabase() {
 
     abstract fun TareaDao(): TareaDao
 
@@ -19,7 +19,7 @@ abstract class DataBase : RoomDatabase() {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    Database::class.java,
+                    AppDatabase::class.java,
                     "tareas_database"
                 ).build()
                 INSTANCE = instance
