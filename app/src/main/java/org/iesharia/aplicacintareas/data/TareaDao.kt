@@ -20,6 +20,7 @@ import androidx.room.*
     @Update
     suspend fun updateTarea(tarea: Tarea)
 
-
+    @Delete
+    suspend fun deleteTarea(tarea: Tarea)
 
 }
