@@ -9,4 +9,12 @@ import androidx.room.*
     @Insert
     suspend fun insertarTipoTarea(tipoTarea: TipoTarea)
 
+    @Query("""
+        SElECT Tareas.*, TiposTareas.titulo AS tipoTareasTitulo
+        FROM tareas
+        INNER JOIN tipostareas ON Tareas.id_tipostareas = tipostareas.id
+    """
+    )
+   
+
 }
