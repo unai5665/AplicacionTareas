@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "org.iesharia.aplicacintareas"
+    namespace = "org.iesharia.aplicaciontareas"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "org.iesharia.aplicacintareas"
+        applicationId = "org.iesharia.aplicaciontareas"
         minSdk = 35
         targetSdk = 35
         versionCode = 1
