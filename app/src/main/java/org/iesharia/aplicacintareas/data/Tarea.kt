@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "tareas")
 data class Tarea( @PrimaryKey(autoGenerate = true)
                     val id: Int = 0,
-                    val titulo: String, val isCompleted: Boolean = false
+                    val titulo: String,
                     val descripcion: String,
                     val id_tipostareas: Int
 )
