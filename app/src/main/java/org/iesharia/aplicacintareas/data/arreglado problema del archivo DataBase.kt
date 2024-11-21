@@ -13,13 +13,13 @@ abstract class DataBase : RoomDatabase() {
 
     companion object {
         @Volatile
-        private var INSTANCE: Database? = null
+        private var INSTANCE: DataBase? = null
 
-        fun getDatabase(context: Context): Database {
+        fun getDataBase(context: Context): DataBase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    Database::class.java,
+                    DataBase::class.java,
                     "tareas_database"
                 ).build()
                 INSTANCE = instance
@@ -28,3 +28,4 @@ abstract class DataBase : RoomDatabase() {
         }
     }
 }
+
