@@ -16,4 +16,10 @@ class TareasRepository(private val tareaDao: TareaDao) {
         }
     }
 
+    suspend fun insertTipoTarea(tipoTarea: TipoTarea) {
+        withContext(Dispatchers.IO) {
+            tareaDao.insertarTipoTarea(tipoTarea)
+        }
+    }
+
 }
