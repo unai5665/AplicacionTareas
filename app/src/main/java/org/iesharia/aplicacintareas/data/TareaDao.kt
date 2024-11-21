@@ -2,5 +2,10 @@ package org.iesharia.aplicacintareas.data
 
 import androidx.room.*
 
-interface TareaDao {
+@Dao interface TareaDao {
+    @Insert
+    suspend fun insertarTarea(tarea: Tarea)
+
+
+
 }
