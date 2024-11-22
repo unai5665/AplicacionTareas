@@ -16,11 +16,8 @@ import org.iesharia.aplicacintareas.ui.theme.AplicaciónTareasTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            AplicaciónTareasTheme {
-
-                }
+        
+        val database = DataBase.getDataBase(this)
             }
         }
     }
