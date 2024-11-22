@@ -19,7 +19,12 @@ class MainActivity : ComponentActivity() {
         
         val database = DataBase.getDataBase(this)
         val repository = TareasRepository(database.TareaDao())
+
+        setContent {
+            MaterialTheme {
+                TareasScreen(repository = repository)
             }
         }
     }
+}
 
