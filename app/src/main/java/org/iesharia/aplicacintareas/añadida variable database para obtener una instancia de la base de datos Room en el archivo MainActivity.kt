@@ -18,6 +18,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         
         val database = DataBase.getDataBase(this)
+        val repository = TareasRepository(database.TareaDao())
             }
         }
     }
