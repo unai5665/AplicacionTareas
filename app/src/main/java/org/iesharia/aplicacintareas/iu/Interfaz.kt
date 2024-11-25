@@ -40,7 +40,13 @@ fun TareasScreen(repository: TareasRepository) {
      Box(modifier = Modifier
         .fillMaxSize()
         .background(rosaFucsia)) {
-         Column(modifier = Modifier.padding(16.dp)) {}
+         Column(modifier = Modifier.padding(16.dp)) {
+             Text(
+                "Tareas",
+                modifier = Modifier.padding(vertical = 20.dp),
+                style = TextStyle(fontSize = 30.sp, color = Color.Black)
+            )
+         }
         }
 
 
