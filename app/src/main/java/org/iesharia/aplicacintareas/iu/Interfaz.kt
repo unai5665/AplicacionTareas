@@ -24,3 +24,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import org.iesharia.aplicaciontareas.model.TareasRepository
 
+val azulCielo = Color(0xFF00C4FF) // Rosa fuerte
+val rosaFucsia = Color(0xFFFF1493) // Rosa fucsia
+val rosaLavanda = Color(0xFFEE82EE)  // Rosa lavanda
