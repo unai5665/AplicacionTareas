@@ -121,6 +121,17 @@ fun TareasScreen(repository: TareasRepository) {
                 Text("Agregar Tarea", color = Color.White)
             }
 
+             LazyColumn(modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 16.dp)) {
+                items(tareas) { tarea ->
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 4.dp),
+                        backgroundColor = azulCielo
+                    ) {}}}
+
 
 
 
