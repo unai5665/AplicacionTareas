@@ -81,6 +81,44 @@ fun TareasScreen(repository: TareasRepository) {
                     .height(50.dp)
             )
 
+            Button(
+                onClick = {
+                    scope.launch {
+                        val tipoExistente = repository.getTipoTareaPorTitulo(tipo)
+                        val tipoId = if (tipoExistente != null) {
+                            tipoExistente.id
+                        } else {
+                            // Insertar el nuevo tipo de tarea y obtener su ID
+                            val nuevoTipoTarea = TipoTarea(titulo = tipo)
+                            repository.insertTipoTarea(nuevoTipoTarea)
+                            repository.getTipoTareaPorTitulo(tipo)?.id ?: 0
+                        }
+
+                        // Insertar la tarea con el ID del tipo correcto
+                        val nuevaTarea = Tarea(
+                            titulo = titulo,
+                            descripcion = descripcion,
+                            id_tipostareas = tipoId
+                        )
+                        val idGenerado = repository.insertTarea(nuevaTarea)
+
+                        val tareaConTipo = TareaDao.TareaConTipo(
+                            id = idGenerado.toInt(),
+                            titulo = nuevaTarea.titulo,
+                            descripcion = nuevaTarea.descripcion,
+                            tipo = tipo
+                        )
+                        tareas.add(tareaConTipo)
+
+                        // Limpiar los campos del formulario
+                        titulo = ""
+                        descripcion = ""
+                        tipo = ""
+                    }
+                },
+                modifier = Modifier.padding(top = 16.dp)
+            )
+
 
 
 
