@@ -31,4 +31,5 @@ val rosaLavanda = Color(0xFFEE82EE)  // Rosa lavanda
 fun TareasScreen(repository: TareasRepository) {
     val tareas = remember { mutableStateListOf<TareaDao.TareaConTipo>() }
     val scope = rememberCoroutineScope()
+    var editarTarea by remember { mutableStateOf<TareaDao.TareaConTipo?>(null) }
      }
