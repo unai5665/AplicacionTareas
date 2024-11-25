@@ -225,6 +225,12 @@ fun TareasScreen(repository: TareasRepository) {
                         label = { Text("Nuevo Tipo") },
                         modifier = Modifier.fillMaxWidth()
                     )
+                     Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 16.dp),
+                        horizontalArrangement = Arrangement.End
+                    ) {}
         }}
 
 
