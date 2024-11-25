@@ -189,28 +189,18 @@ fun TareasScreen(repository: TareasRepository) {
                                     color = Color.Black,
                                     style = TextStyle(fontSize = 12.sp),
                                 )
-
-
-
-
-
-                                
                             }
                         }
                     }
                 }
-             }
-
-
-
-
-
-
-
-
-            
+             } 
          }
-        }
+    }
+
+
+     
+     if (editarTarea != null) {
+        Dialog(onDismissRequest = { editarTarea = null }) {}}
 
 
 
