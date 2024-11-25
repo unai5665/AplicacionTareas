@@ -36,5 +36,28 @@ fun TareasScreen(repository: TareasRepository) {
      LaunchedEffect(Unit) {
         tareas.addAll(repository.getTareasConTipos())
     }
+
+     Box(modifier = Modifier
+        .fillMaxSize()
+        .background(rosaFucsia)) {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
      }
  
