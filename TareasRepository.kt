@@ -16,6 +16,12 @@ class TareasRepository(private val tareaDao: TareaDao) {
         }
     }
 
+    suspend fun getTipoTareaPorTitulo(titulo: String): TipoTarea? {
+        return withContext(Dispatchers.IO) {
+            tareaDao.getTipoTareaPorTitulo(titulo)
+        }
+    }
+
     suspend fun insertTipoTarea(tipoTarea: TipoTarea) {
         withContext(Dispatchers.IO) {
             tareaDao.insertarTipoTarea(tipoTarea)
