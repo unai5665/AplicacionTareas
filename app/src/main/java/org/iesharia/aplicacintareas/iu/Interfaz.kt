@@ -29,4 +29,5 @@ val rosaFucsia = Color(0xFFFF1493) // Rosa fucsia
 val rosaLavanda = Color(0xFFEE82EE)  // Rosa lavanda
 @Composable
 fun TareasScreen(repository: TareasRepository) {
+    val tareas = remember { mutableStateListOf<TareaDao.TareaConTipo>() }
      }
