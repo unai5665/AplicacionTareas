@@ -270,7 +270,9 @@ fun TareasScreen(repository: TareasRepository) {
                                 // Cerrar el diálogo de edición
                                 editarTarea = null
                             }
-                        })
+                        }){
+                            Text("Guardar")
+                        }
                          
                     }
         }}
