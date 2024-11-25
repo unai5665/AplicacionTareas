@@ -117,7 +117,9 @@ fun TareasScreen(repository: TareasRepository) {
                     }
                 },
                 modifier = Modifier.padding(top = 16.dp)
-            )
+            ){
+                Text("Agregar Tarea", color = Color.White)
+            }
 
 
 
