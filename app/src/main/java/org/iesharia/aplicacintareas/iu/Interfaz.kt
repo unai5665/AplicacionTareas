@@ -39,7 +39,9 @@ fun TareasScreen(repository: TareasRepository) {
 
      Box(modifier = Modifier
         .fillMaxSize()
-        .background(rosaFucsia)) {}
+        .background(rosaFucsia)) {
+         Column(modifier = Modifier.padding(16.dp)) {}
+        }
 
 
 
