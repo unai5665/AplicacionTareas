@@ -130,7 +130,12 @@ fun TareasScreen(repository: TareasRepository) {
                             .fillMaxWidth()
                             .padding(vertical = 4.dp),
                         backgroundColor = azulCielo
-                    ) {}}}
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(16.dp)
+                        ) {}
+                    }}}
 
 
 
