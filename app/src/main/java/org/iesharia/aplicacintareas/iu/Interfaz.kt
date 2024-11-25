@@ -200,7 +200,10 @@ fun TareasScreen(repository: TareasRepository) {
 
      
      if (editarTarea != null) {
-        Dialog(onDismissRequest = { editarTarea = null }) {}}
+        Dialog(onDismissRequest = { editarTarea = null }) {
+            Surface(modifier = Modifier.padding(16.dp)) {
+                Column(modifier = Modifier.padding(16.dp)) {}
+        }}
 
 
 
