@@ -158,7 +158,20 @@ fun TareasScreen(repository: TareasRepository) {
                             }
                             Column(
                                 horizontalAlignment = Alignment.End
-                            ) {}
+                            ) {
+                                IconButton(onClick = {
+                                    scope.launch {
+                                        val tareaEliminar = Tarea(
+                                            id = tarea.id,
+                                            titulo = tarea.titulo,
+                                            descripcion = tarea.descripcion,
+                                            id_tipostareas = 1 
+                                        )
+                                        repository.deleteTarea(tareaEliminar)
+                                        tareas.remove(tarea)
+                                    }
+                                }
+                            }
                         }
                     }
                 }
