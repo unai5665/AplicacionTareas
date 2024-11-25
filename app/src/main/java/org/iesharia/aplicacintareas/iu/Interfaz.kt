@@ -177,6 +177,19 @@ fun TareasScreen(repository: TareasRepository) {
                                         tint = Color.Black
                                     )
                                 }
+                                IconButton(onClick = { editarTarea = tarea }) {
+                                    Icon(
+                                        imageVector = Icons.Default.Edit,
+                                        contentDescription = "Editar",
+                                        tint = Color.Blue
+                                    )
+                                }
+
+
+
+
+
+                                
                             }
                         }
                     }
