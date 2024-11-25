@@ -24,9 +24,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import org.iesharia.aplicaciontareas.model.TareasRepository
 
-val azulCielo = Color(0xFF00C4FF) // Rosa fuerte
-val rosaFucsia = Color(0xFFFF1493) // Rosa fucsia
-val rosaLavanda = Color(0xFFEE82EE)  // Rosa lavanda
+val azulCielo = Color(0xFF00C4FF) 
+val rosaFucsia = Color(0xFFFF1493) 
+val rosaLavanda = Color(0xFFEE82EE)  
 @Composable
 fun TareasScreen(repository: TareasRepository) {
     val tareas = remember { mutableStateListOf<TareaDao.TareaConTipo>() }
@@ -88,13 +88,13 @@ fun TareasScreen(repository: TareasRepository) {
                         val tipoId = if (tipoExistente != null) {
                             tipoExistente.id
                         } else {
-                            // Insertar el nuevo tipo de tarea y obtener su ID
+                          
                             val nuevoTipoTarea = TipoTarea(titulo = tipo)
                             repository.insertTipoTarea(nuevoTipoTarea)
                             repository.getTipoTareaPorTitulo(tipo)?.id ?: 0
                         }
 
-                        // Insertar la tarea con el ID del tipo correcto
+                      
                         val nuevaTarea = Tarea(
                             titulo = titulo,
                             descripcion = descripcion,
@@ -110,7 +110,7 @@ fun TareasScreen(repository: TareasRepository) {
                         )
                         tareas.add(tareaConTipo)
 
-                        // Limpiar los campos del formulario
+                       
                         titulo = ""
                         descripcion = ""
                         tipo = ""
@@ -156,6 +156,9 @@ fun TareasScreen(repository: TareasRepository) {
 
                                 )
                             }
+                            Column(
+                                horizontalAlignment = Alignment.End
+                            ) {}
                         }
                     }
                 }
