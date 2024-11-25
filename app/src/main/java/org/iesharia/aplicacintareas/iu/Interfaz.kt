@@ -170,6 +170,12 @@ fun TareasScreen(repository: TareasRepository) {
                                         repository.deleteTarea(tareaEliminar)
                                         tareas.remove(tarea)
                                     }
+                                }) {
+                                    Icon(
+                                        imageVector = Icons.Default.Delete,
+                                        contentDescription = "Eliminar",
+                                        tint = Color.Black
+                                    )
                                 }
                             }
                         }
