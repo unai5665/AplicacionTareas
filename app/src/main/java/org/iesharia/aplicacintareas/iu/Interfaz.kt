@@ -46,6 +46,10 @@ fun TareasScreen(repository: TareasRepository) {
                 modifier = Modifier.padding(vertical = 20.dp),
                 style = TextStyle(fontSize = 30.sp, color = Color.Black)
             )
+
+            var titulo by remember { mutableStateOf("") }
+            var descripcion by remember { mutableStateOf("") }
+            var tipo by remember { mutableStateOf("") }
          }
         }
 
