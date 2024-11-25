@@ -230,7 +230,49 @@ fun TareasScreen(repository: TareasRepository) {
                             .fillMaxWidth()
                             .padding(top = 16.dp),
                         horizontalArrangement = Arrangement.End
-                    ) {}
+                    ) {
+                         Button(onClick = { editarTarea = null }) {
+                            Text("Cancelar")
+                        }
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Button(onClick = {
+                            scope.launch {
+                                // Verificar si el tipo de tarea ya existe
+                                val tipoExistente = repository.getTipoTareaPorTitulo(nuevoTipo)
+                                val tipoId = if (tipoExistente != null) {
+                                    tipoExistente.id
+                                } else {
+                                    // Si no existe, insertarlo
+                                    val nuevoTipoTarea = TipoTarea(titulo = nuevoTipo)
+                                    repository.insertTipoTarea(nuevoTipoTarea)
+                                    repository.getTipoTareaPorTitulo(nuevoTipo)?.id ?: 0
+                                }
+
+                                // Crear la tarea actualizada con el ID del tipo correcto
+                                val tareaActualizada = Tarea(
+                                    id = editarTarea!!.id,
+                                    titulo = nuevoTitulo,
+                                    descripcion = nuevaDescripcion,
+                                    id_tipostareas = tipoId
+                                )
+                                repository.updateTarea(tareaActualizada)
+
+                                // Actualizar la lista local de tareas
+                                val tareaConTipo = TareaDao.TareaConTipo(
+                                    id = tareaActualizada.id,
+                                    titulo = nuevoTitulo,
+                                    descripcion = nuevaDescripcion,
+                                    tipo = nuevoTipo
+                                )
+                                val index = tareas.indexOf(editarTarea!!)
+                                tareas[index] = tareaConTipo
+
+                                // Cerrar el diálogo de edición
+                                editarTarea = null
+                            }
+                        })
+                         
+                    }
         }}
 
 
