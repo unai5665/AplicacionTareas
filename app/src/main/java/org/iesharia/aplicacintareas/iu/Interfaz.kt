@@ -70,6 +70,16 @@ fun TareasScreen(repository: TareasRepository) {
                         .background(rosaLavanda)
                 )
             }
+            TextField(
+                value = descripcion,
+                onValueChange = { descripcion = it },
+                placeholder = { Text("Descripción") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp)
+                    .background(rosaLavanda)
+                    .height(50.dp)
+            )
 
 
 
