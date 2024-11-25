@@ -1,58 +1,63 @@
-package org.iesharia.aplicacintareas.iu
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+package org.iesharia.aplicaciontareas.iu
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.TextField
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import kotlinx.coroutines.launch
 import org.iesharia.aplicaciontareas.data.Tarea
-import org.iesharia.aplicaciontareas.data.TareaDao.TareaConTipo
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
+import org.iesharia.aplicaciontareas.data.TipoTarea
+import org.iesharia.aplicaciontareas.data.TareaDao
 import org.iesharia.aplicaciontareas.model.TareasRepository
 
-val azulCielo = Color(0xFF00C4FF) 
-val rosaFucsia = Color(0xFFFF1493) 
+/
+val azulCielo = Color(0xFF00C4FF)
+val rosaFucsia = Color(0xFFFF1493)
 val rosaLavanda = Color(0xFFEE82EE)  
+
 @Composable
 fun TareasScreen(repository: TareasRepository) {
     val tareas = remember { mutableStateListOf<TareaDao.TareaConTipo>() }
     val scope = rememberCoroutineScope()
     var editarTarea by remember { mutableStateOf<TareaDao.TareaConTipo?>(null) }
 
-     LaunchedEffect(Unit) {
+   
+    LaunchedEffect(Unit) {
         tareas.addAll(repository.getTareasConTipos())
     }
 
-     Box(modifier = Modifier
+    
+    Box(modifier = Modifier
         .fillMaxSize()
         .background(rosaFucsia)) {
-         Column(modifier = Modifier.padding(16.dp)) {
-             Text(
+        Column(modifier = Modifier.padding(16.dp)) {
+
+           
+            Text(
                 "Tareas",
                 modifier = Modifier.padding(vertical = 20.dp),
                 style = TextStyle(fontSize = 30.sp, color = Color.Black)
             )
 
+            
             var titulo by remember { mutableStateOf("") }
             var descripcion by remember { mutableStateOf("") }
             var tipo by remember { mutableStateOf("") }
 
             Row {
-                 TextField(
+                TextField(
                     value = titulo,
                     onValueChange = { titulo = it },
                     placeholder = { Text("Título") },
@@ -81,6 +86,7 @@ fun TareasScreen(repository: TareasRepository) {
                     .height(50.dp)
             )
 
+
             Button(
                 onClick = {
                     scope.launch {
@@ -88,13 +94,12 @@ fun TareasScreen(repository: TareasRepository) {
                         val tipoId = if (tipoExistente != null) {
                             tipoExistente.id
                         } else {
-                          
+                            
                             val nuevoTipoTarea = TipoTarea(titulo = tipo)
                             repository.insertTipoTarea(nuevoTipoTarea)
                             repository.getTipoTareaPorTitulo(tipo)?.id ?: 0
                         }
 
-                      
                         val nuevaTarea = Tarea(
                             titulo = titulo,
                             descripcion = descripcion,
@@ -110,18 +115,17 @@ fun TareasScreen(repository: TareasRepository) {
                         )
                         tareas.add(tareaConTipo)
 
-                       
                         titulo = ""
                         descripcion = ""
                         tipo = ""
                     }
                 },
                 modifier = Modifier.padding(top = 16.dp)
-            ){
+            ) {
                 Text("Agregar Tarea", color = Color.White)
             }
 
-             LazyColumn(modifier = Modifier
+            LazyColumn(modifier = Modifier
                 .fillMaxSize()
                 .padding(top = 16.dp)) {
                 items(tareas) { tarea ->
@@ -156,6 +160,8 @@ fun TareasScreen(repository: TareasRepository) {
 
                                 )
                             }
+
+                            
                             Column(
                                 horizontalAlignment = Alignment.End
                             ) {
@@ -177,6 +183,7 @@ fun TareasScreen(repository: TareasRepository) {
                                         tint = Color.Black
                                     )
                                 }
+
                                 IconButton(onClick = { editarTarea = tarea }) {
                                     Icon(
                                         imageVector = Icons.Default.Edit,
@@ -193,21 +200,23 @@ fun TareasScreen(repository: TareasRepository) {
                         }
                     }
                 }
-             } 
-         }
+            }
+        }
     }
 
 
-     
-     if (editarTarea != null) {
+
+    
+    if (editarTarea != null) {
         Dialog(onDismissRequest = { editarTarea = null }) {
             Surface(modifier = Modifier.padding(16.dp)) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     var nuevoTitulo by remember { mutableStateOf(editarTarea!!.titulo) }
                     var nuevaDescripcion by remember { mutableStateOf(editarTarea!!.descripcion) }
                     var nuevoTipo by remember { mutableStateOf(editarTarea!!.tipo) }
-                }
-                TextField(
+
+                    
+                    TextField(
                         value = nuevoTitulo,
                         onValueChange = { nuevoTitulo = it },
                         label = { Text("Nuevo Título") },
@@ -225,13 +234,14 @@ fun TareasScreen(repository: TareasRepository) {
                         label = { Text("Nuevo Tipo") },
                         modifier = Modifier.fillMaxWidth()
                     )
-                     Row(
+
+                    Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 16.dp),
                         horizontalArrangement = Arrangement.End
                     ) {
-                         Button(onClick = { editarTarea = null }) {
+                        Button(onClick = { editarTarea = null }) {
                             Text("Cancelar")
                         }
                         Spacer(modifier = Modifier.width(8.dp))
@@ -270,30 +280,13 @@ fun TareasScreen(repository: TareasRepository) {
                                 // Cerrar el diálogo de edición
                                 editarTarea = null
                             }
-                        }){
+                        }) {
                             Text("Guardar")
                         }
-                         
-                    }
-        }}
+                    } 
+                }
+            }
+        }
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     
-     }
- 
