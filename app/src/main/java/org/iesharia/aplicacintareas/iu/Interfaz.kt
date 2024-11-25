@@ -202,7 +202,11 @@ fun TareasScreen(repository: TareasRepository) {
      if (editarTarea != null) {
         Dialog(onDismissRequest = { editarTarea = null }) {
             Surface(modifier = Modifier.padding(16.dp)) {
-                Column(modifier = Modifier.padding(16.dp)) {}
+                Column(modifier = Modifier.padding(16.dp)) {
+                    var nuevoTitulo by remember { mutableStateOf(editarTarea!!.titulo) }
+                    var nuevaDescripcion by remember { mutableStateOf(editarTarea!!.descripcion) }
+                    var nuevoTipo by remember { mutableStateOf(editarTarea!!.tipo) }
+                }
         }}
 
 
