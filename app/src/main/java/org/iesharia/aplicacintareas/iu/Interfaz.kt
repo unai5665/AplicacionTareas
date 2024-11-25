@@ -22,7 +22,7 @@ import org.iesharia.aplicaciontareas.data.TipoTarea
 import org.iesharia.aplicaciontareas.data.TareaDao
 import org.iesharia.aplicaciontareas.model.TareasRepository
 
-/
+
 val azulCielo = Color(0xFF00C4FF)
 val rosaFucsia = Color(0xFFFF1493)
 val rosaLavanda = Color(0xFFEE82EE)  
