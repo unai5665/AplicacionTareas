@@ -135,7 +135,27 @@ fun TareasScreen(repository: TareasRepository) {
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier.padding(16.dp)
                         ) {
-                            Column(Modifier.weight(1f)) {}
+                            Column(Modifier.weight(1f)) {
+                                Text(
+                                    text = "Tipo: ${tarea.tipo}",
+                                    color = Color.Black,
+                                    style = TextStyle(fontSize = 15.sp),
+                                    modifier = Modifier.padding(end = 15.dp)
+
+                                )
+                                Text(
+                                    text = "Título: ${tarea.titulo}",
+                                    color = Color.Black,
+                                    style = TextStyle(fontSize = 19.sp),
+                                    modifier = Modifier.padding(top = 25.dp, bottom = 20.dp)
+                                )
+                                Text(
+                                    text = "Descripción: ${tarea.descripcion}",
+                                    color = Color.Black,
+                                    style = TextStyle(fontSize = 15.sp),
+
+                                )
+                            }
                         }
                     }
                 }
