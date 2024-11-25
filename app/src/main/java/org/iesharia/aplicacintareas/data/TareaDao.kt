@@ -4,7 +4,9 @@ import androidx.room.*
 
 @Dao interface TareaDao {
     @Insert
-    suspend fun insertarTarea(tarea: Tarea)
+    suspend fun insertarTarea(tarea: Tarea): Long
+    @Query("SELECT * FROM tipostareas WHERE titulo = :titulo LIMIT 1")
+    suspend fun getTipoTareaPorTitulo(titulo: String): TipoTarea?
 
     @Insert
     suspend fun insertarTipoTarea(tipoTarea: TipoTarea)
