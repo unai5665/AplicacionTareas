@@ -1,4 +1,4 @@
-package org.iesharia.aplicacintareas
+package com.example.aplicaciontareas
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,20 +11,37 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import org.iesharia.aplicacintareas.ui.theme.AplicaciónTareasTheme
+import com.example.aplicaciontareas.ui.theme.AplicacionTareasTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
-        val database = DataBase.getDataBase(this)
-        val repository = TareasRepository(database.TareaDao())
-
+        enableEdgeToEdge()
         setContent {
-            MaterialTheme {
-                TareasScreen(repository = repository)
+            AplicacionTareasTheme {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    Greeting(
+                        name = "Android",
+                        modifier = Modifier.padding(innerPadding)
+                    )
+                }
             }
         }
     }
 }
 
+@Composable
+fun Greeting(name: String, modifier: Modifier = Modifier) {
+    Text(
+        text = "Hello $name!",
+        modifier = modifier
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    AplicacionTareasTheme {
+        Greeting("Android")
+    }
+}
