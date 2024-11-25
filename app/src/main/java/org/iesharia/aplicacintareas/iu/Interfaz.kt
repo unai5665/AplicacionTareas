@@ -51,7 +51,25 @@ fun TareasScreen(repository: TareasRepository) {
             var descripcion by remember { mutableStateOf("") }
             var tipo by remember { mutableStateOf("") }
 
-            Row {}
+            Row {
+                 TextField(
+                    value = titulo,
+                    onValueChange = { titulo = it },
+                    placeholder = { Text("Título") },
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 8.dp)
+                        .background(rosaLavanda)
+                )
+                TextField(
+                    value = tipo,
+                    onValueChange = { tipo = it },
+                    placeholder = { Text("Tipo de Tarea") },
+                    modifier = Modifier
+                        .weight(1f)
+                        .background(rosaLavanda)
+                )
+            }
 
 
 
