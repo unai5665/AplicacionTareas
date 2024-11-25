@@ -32,4 +32,9 @@ fun TareasScreen(repository: TareasRepository) {
     val tareas = remember { mutableStateListOf<TareaDao.TareaConTipo>() }
     val scope = rememberCoroutineScope()
     var editarTarea by remember { mutableStateOf<TareaDao.TareaConTipo?>(null) }
+
+     LaunchedEffect(Unit) {
+        tareas.addAll(repository.getTareasConTipos())
+    }
      }
+ 
