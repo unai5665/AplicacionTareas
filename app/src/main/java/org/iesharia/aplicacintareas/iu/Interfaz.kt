@@ -207,6 +207,24 @@ fun TareasScreen(repository: TareasRepository) {
                     var nuevaDescripcion by remember { mutableStateOf(editarTarea!!.descripcion) }
                     var nuevoTipo by remember { mutableStateOf(editarTarea!!.tipo) }
                 }
+                TextField(
+                        value = nuevoTitulo,
+                        onValueChange = { nuevoTitulo = it },
+                        label = { Text("Nuevo Título") },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    TextField(
+                        value = nuevaDescripcion,
+                        onValueChange = { nuevaDescripcion = it },
+                        label = { Text("Nueva Descripción") },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    TextField(
+                        value = nuevoTipo,
+                        onValueChange = { nuevoTipo = it },
+                        label = { Text("Nuevo Tipo") },
+                        modifier = Modifier.fillMaxWidth()
+                    )
         }}
 
 
