@@ -10,9 +10,9 @@ import org.iesharia.aplicacintareas.data.TareaDao.TareaConTipo
 
 class TareasRepository(private val tareaDao: TareaDao) {
 
-    suspend fun insertTarea(tarea: Tarea) {
-        withContext(Dispatchers.IO) {
-            tareaDao.insertarTarea(tarea)
+    suspend fun insertTarea(tarea: Tarea): Long {
+        return withContext(Dispatchers.IO) {
+            tareaDao.insertarTarea(tarea)  
         }
     }
 
