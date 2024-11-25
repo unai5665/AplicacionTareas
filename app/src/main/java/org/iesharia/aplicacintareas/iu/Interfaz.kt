@@ -184,6 +184,11 @@ fun TareasScreen(repository: TareasRepository) {
                                         tint = Color.Blue
                                     )
                                 }
+                                Text(
+                                    text = "ID: ${tarea.id}",
+                                    color = Color.Black,
+                                    style = TextStyle(fontSize = 12.sp),
+                                )
 
 
 
