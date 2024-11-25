@@ -50,6 +50,17 @@ fun TareasScreen(repository: TareasRepository) {
             var titulo by remember { mutableStateOf("") }
             var descripcion by remember { mutableStateOf("") }
             var tipo by remember { mutableStateOf("") }
+
+            Row {}
+
+
+
+
+
+
+
+
+            
          }
         }
 
