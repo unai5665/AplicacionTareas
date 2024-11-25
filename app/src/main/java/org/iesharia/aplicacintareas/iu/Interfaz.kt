@@ -134,8 +134,12 @@ fun TareasScreen(repository: TareasRepository) {
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier.padding(16.dp)
-                        ) {}
-                    }}}
+                        ) {
+                            Column(Modifier.weight(1f)) {}
+                        }
+                    }
+                }
+             }
 
 
 
