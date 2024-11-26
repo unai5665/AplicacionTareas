@@ -1,0 +1,334 @@
+Index: app/src/main/java/org/iesharia/aplicacintareas/data/AppDataBase.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/org/iesharia/aplicacintareas/data/AppDataBase.kt b/app/src/main/java/org/iesharia/aplicacintareas/data/DataBase.kt
+rename from app/src/main/java/org/iesharia/aplicacintareas/data/AppDataBase.kt
+rename to app/src/main/java/org/iesharia/aplicacintareas/data/DataBase.kt
+--- a/app/src/main/java/org/iesharia/aplicacintareas/data/AppDataBase.kt	(revision bba858c0f509d4451f3bf0e2ba77a10681fb3164)
++++ b/app/src/main/java/org/iesharia/aplicacintareas/data/DataBase.kt	(date 1732522596390)
+@@ -13,13 +13,15 @@
+ 
+     companion object {
+         @Volatile
+-        private var INSTANCE: Database? = null
++        private var INSTANCE: DataBase? = null
+ 
+-        fun getDatabase(context: Context): Database {
++        fun getDataBase(context: Context): DataBase {
+             return INSTANCE ?: synchronized(this) {
+                 val instance = Room.databaseBuilder(
+                     context.applicationContext,
+                     AppDatabase::class.java,
++
++                    DataBase::class.java,
+                     "tareas_database"
+                 ).build()
+                 INSTANCE = instance
+@@ -27,4 +29,5 @@
+             }
+         }
+     }
+-}
+\ No newline at end of file
++}
++
+Index: app/src/main/java/org/iesharia/aplicacintareas/model/TareasRepository.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.iesharia.aplicacintareas.model\n\nclass TareasRepository {\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/org/iesharia/aplicacintareas/model/TareasRepository.kt b/app/src/main/java/org/iesharia/aplicacintareas/model/TareasRepository.kt
+--- a/app/src/main/java/org/iesharia/aplicacintareas/model/TareasRepository.kt	(revision bba858c0f509d4451f3bf0e2ba77a10681fb3164)
++++ b/app/src/main/java/org/iesharia/aplicacintareas/model/TareasRepository.kt	(date 1732522311547)
+@@ -1,4 +1,42 @@
+ package org.iesharia.aplicacintareas.model
+ 
+-class TareasRepository {
+-}
+\ No newline at end of file
++import kotlinx.coroutines.Dispatchers
++import kotlinx.coroutines.withContext
++import org.iesharia.aplicacintareas.data.Tarea
++import org.iesharia.aplicacintareas.data.TareaDao
++import org.iesharia.aplicacintareas.data.TipoTarea
++import org.iesharia.aplicacintareas.data.TareaDao.TareaConTipo
++
++
++class TareasRepository(private val tareaDao: TareaDao) {
++
++    suspend fun insertTarea(tarea: Tarea) {
++        withContext(Dispatchers.IO) {
++            tareaDao.insertarTarea(tarea)
++        }
++    }
++
++    suspend fun insertTipoTarea(tipoTarea: TipoTarea) {
++        withContext(Dispatchers.IO) {
++            tareaDao.insertarTipoTarea(tipoTarea)
++        }
++    }
++    
++    suspend fun getTareasConTipos(): List<TareaConTipo> {
++        return withContext(Dispatchers.IO) {
++            tareaDao.getTareasConTipos()
++        }
++    }
++    suspend fun updateTarea(tarea: Tarea) {
++        withContext(Dispatchers.IO) {
++            tareaDao.updateTarea(tarea)
++        }
++    }
++
++    suspend fun deleteTarea(tarea: Tarea) {
++        withContext(Dispatchers.IO) {
++            tareaDao.deleteTarea(tarea)
++        }
++    }
++
++}
+Index: app/src/main/java/org/iesharia/aplicacintareas/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/org/iesharia/aplicacintareas/MainActivity.kt b/app/src/main/java/org/iesharia/aplicacintareas/MainActivity.kt
+deleted file mode 100644
+--- a/app/src/main/java/org/iesharia/aplicacintareas/MainActivity.kt	(revision bba858c0f509d4451f3bf0e2ba77a10681fb3164)
++++ /dev/null	(revision bba858c0f509d4451f3bf0e2ba77a10681fb3164)
+@@ -1,27 +0,0 @@
+-package org.iesharia.aplicacintareas
+-
+-import android.os.Bundle
+-import androidx.activity.ComponentActivity
+-import androidx.activity.compose.setContent
+-import androidx.activity.enableEdgeToEdge
+-import androidx.compose.foundation.layout.fillMaxSize
+-import androidx.compose.foundation.layout.padding
+-import androidx.compose.material3.Scaffold
+-import androidx.compose.material3.Text
+-import androidx.compose.runtime.Composable
+-import androidx.compose.ui.Modifier
+-import androidx.compose.ui.tooling.preview.Preview
+-import org.iesharia.aplicacintareas.ui.theme.AplicaciónTareasTheme
+-
+-class MainActivity : ComponentActivity() {
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-        enableEdgeToEdge()
+-        setContent {
+-            AplicaciónTareasTheme {
+-
+-                }
+-            }
+-        }
+-    }
+-
+Index: app/src/main/res/values/themes.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<resources>\n\n    <style name=\"Theme.AplicaciónTareas\" parent=\"android:Theme.Material.Light.NoActionBar\" />\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/themes.xml b/app/src/main/res/values/themes.xml
+--- a/app/src/main/res/values/themes.xml	(revision bba858c0f509d4451f3bf0e2ba77a10681fb3164)
++++ b/app/src/main/res/values/themes.xml	(date 1732576524000)
+@@ -1,5 +1,5 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+ 
+-    <style name="Theme.AplicaciónTareas" parent="android:Theme.Material.Light.NoActionBar" />
++    <style name="Theme.AplicacionTareas" parent="android:Theme.Material.Light.NoActionBar" />
+ </resources>
+\ No newline at end of file
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\n    <string name=\"app_name\">AplicaciónTareas</string>\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	(revision bba858c0f509d4451f3bf0e2ba77a10681fb3164)
++++ b/app/src/main/res/values/strings.xml	(date 1732576524000)
+@@ -1,3 +1,3 @@
+ <resources>
+-    <string name="app_name">AplicaciónTareas</string>
++    <string name="app_name">AplicacionTareas</string>
+ </resources>
+\ No newline at end of file
+Index: settings.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>pluginManagement {\n    repositories {\n        google {\n            content {\n                includeGroupByRegex(\"com\\\\.android.*\")\n                includeGroupByRegex(\"com\\\\.google.*\")\n                includeGroupByRegex(\"androidx.*\")\n            }\n        }\n        mavenCentral()\n        gradlePluginPortal()\n    }\n}\ndependencyResolutionManagement {\n    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)\n    repositories {\n        google()\n        mavenCentral()\n    }\n}\n\nrootProject.name = \"AplicaciónTareas\"\ninclude(\":app\")\n 
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/settings.gradle.kts b/settings.gradle.kts
+--- a/settings.gradle.kts	(revision bba858c0f509d4451f3bf0e2ba77a10681fb3164)
++++ b/settings.gradle.kts	(date 1732576524000)
+@@ -19,6 +19,6 @@
+     }
+ }
+ 
+-rootProject.name = "AplicaciónTareas"
++rootProject.name = "AplicacionTareas"
+ include(":app")
+  
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"VcsDirectoryMappings\" defaultProject=\"true\" />\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+--- a/.idea/vcs.xml	(revision bba858c0f509d4451f3bf0e2ba77a10681fb3164)
++++ b/.idea/vcs.xml	(date 1732523268561)
+@@ -1,4 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="VcsDirectoryMappings" defaultProject="true" />
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++  </component>
+ </project>
+\ No newline at end of file
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:tools=\"http://schemas.android.com/tools\">\n\n    <application\n        android:allowBackup=\"true\"\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\n        android:fullBackupContent=\"@xml/backup_rules\"\n        android:icon=\"@mipmap/ic_launcher\"\n        android:label=\"@string/app_name\"\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\n        android:supportsRtl=\"true\"\n        android:theme=\"@style/Theme.AplicaciónTareas\"\n        tools:targetApi=\"31\">\n        <activity\n            android:name=\".MainActivity\"\n            android:exported=\"true\"\n            android:label=\"@string/app_name\"\n            android:theme=\"@style/Theme.AplicaciónTareas\">\n            <intent-filter>\n                <action android:name=\"android.intent.action.MAIN\" />\n\n                <category android:name=\"android.intent.category.LAUNCHER\" />\n            </intent-filter>\n        </activity>\n    </application>\n\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision bba858c0f509d4451f3bf0e2ba77a10681fb3164)
++++ b/app/src/main/AndroidManifest.xml	(date 1732576524000)
+@@ -10,13 +10,13 @@
+         android:label="@string/app_name"
+         android:roundIcon="@mipmap/ic_launcher_round"
+         android:supportsRtl="true"
+-        android:theme="@style/Theme.AplicaciónTareas"
++        android:theme="@style/Theme.AplicacionTareas"
+         tools:targetApi="31">
+         <activity
+             android:name=".MainActivity"
+             android:exported="true"
+             android:label="@string/app_name"
+-            android:theme="@style/Theme.AplicaciónTareas">
++            android:theme="@style/Theme.AplicacionTareas">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+ 
+Index: gradle/wrapper/gradle-wrapper.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#Thu Nov 21 11:40:07 WET 2024\ndistributionBase=GRADLE_USER_HOME\ndistributionPath=wrapper/dists\ndistributionUrl=https\\://services.gradle.org/distributions/gradle-8.9-bin.zip\nzipStoreBase=GRADLE_USER_HOME\nzipStorePath=wrapper/dists\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/gradle/wrapper/gradle-wrapper.properties b/gradle/wrapper/gradle-wrapper.properties
+--- a/gradle/wrapper/gradle-wrapper.properties	(revision bba858c0f509d4451f3bf0e2ba77a10681fb3164)
++++ b/gradle/wrapper/gradle-wrapper.properties	(date 1732576524000)
+@@ -1,4 +1,4 @@
+-#Thu Nov 21 11:40:07 WET 2024
++#Mon Nov 25 23:15:23 WET 2024
+ distributionBase=GRADLE_USER_HOME
+ distributionPath=wrapper/dists
+ distributionUrl=https\://services.gradle.org/distributions/gradle-8.9-bin.zip
+Index: app/src/main/java/org/iesharia/aplicacintareas/iu/Interfaz.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/org/iesharia/aplicacintareas/iu/Interfaz.kt b/app/src/main/java/org/iesharia/aplicacintareas/iu/Interfaz.kt
+new file mode 100644
+--- /dev/null	(date 1732522311547)
++++ b/app/src/main/java/org/iesharia/aplicacintareas/iu/Interfaz.kt	(date 1732522311547)
+@@ -0,0 +1,26 @@
++package org.iesharia.aplicacintareas.iu
++import androidx.compose.foundation.layout.Column
++import androidx.compose.foundation.layout.fillMaxSize
++import androidx.compose.foundation.layout.fillMaxWidth
++import androidx.compose.foundation.layout.padding
++import androidx.compose.foundation.lazy.LazyColumn
++import androidx.compose.foundation.lazy.items
++import androidx.compose.material.Button
++import androidx.compose.material.Card
++import androidx.compose.material.TextField
++import androidx.compose.material3.Text
++import androidx.compose.runtime.Composable
++import androidx.compose.runtime.LaunchedEffect
++import androidx.compose.runtime.mutableStateListOf
++import androidx.compose.runtime.mutableStateOf
++import androidx.compose.runtime.remember
++import androidx.compose.runtime.rememberCoroutineScope
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.unit.dp
++import kotlinx.coroutines.launch
++import org.iesharia.aplicaciontareas.data.Tarea
++import org.iesharia.aplicaciontareas.data.TareaDao.TareaConTipo
++import androidx.compose.runtime.getValue
++import androidx.compose.runtime.setValue
++import org.iesharia.aplicaciontareas.model.TareasRepository
++
+Index: app/build.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\n    alias(libs.plugins.android.application)\n    alias(libs.plugins.kotlin.android)\n    alias(libs.plugins.kotlin.compose)\n    id(\"com.google.devtools.ksp\")\n}\n\nandroid {\n    namespace = \"org.iesharia.aplicaciontareas\"\n    compileSdk = 35\n\n    defaultConfig {\n        applicationId = \"org.iesharia.aplicaciontareas\"\n        minSdk = 35\n        targetSdk = 35\n        versionCode = 1\n        versionName = \"1.0\"\n\n        testInstrumentationRunner = \"androidx.test.runner.AndroidJUnitRunner\"\n    }\n\n    buildTypes {\n        release {\n            isMinifyEnabled = false\n            proguardFiles(\n                getDefaultProguardFile(\"proguard-android-optimize.txt\"),\n                \"proguard-rules.pro\"\n            )\n        }\n    }\n    compileOptions {\n        sourceCompatibility = JavaVersion.VERSION_11\n        targetCompatibility = JavaVersion.VERSION_11\n    }\n    kotlinOptions {\n        jvmTarget = \"11\"\n    }\n    buildFeatures {\n        compose = true\n    }\n}\n\ndependencies {\n    // Jetpack Compose\n    implementation (libs.androidx.activity.compose.v172)\n    implementation (libs.ui)\n    implementation (libs.androidx.material)\n    implementation (libs.ui.tooling.preview)\n\n    // Room\n    implementation (libs.androidx.room.runtime)\n    ksp (libs.androidx.room.compiler)\n    implementation (libs.androidx.room.ktx)\n\n    // Lifecycle\n    implementation (libs.androidx.lifecycle.runtime.ktx.v261)\n\n    implementation(libs.androidx.core.ktx)\n    implementation(libs.androidx.lifecycle.runtime.ktx)\n    implementation(libs.androidx.activity.compose)\n    implementation(platform(libs.androidx.compose.bom))\n    implementation(libs.androidx.ui)\n    implementation(libs.androidx.ui.graphics)\n    implementation(libs.androidx.ui.tooling.preview)\n    implementation(libs.androidx.material3)\n    testImplementation(libs.junit)\n    androidTestImplementation(libs.androidx.junit)\n    androidTestImplementation(libs.androidx.espresso.core)\n    androidTestImplementation(platform(libs.androidx.compose.bom))\n    androidTestImplementation(libs.androidx.ui.test.junit4)\n    debugImplementation(libs.androidx.ui.tooling)\n    debugImplementation(libs.androidx.ui.test.manifest)\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle.kts b/app/build.gradle.kts
+--- a/app/build.gradle.kts	(revision bba858c0f509d4451f3bf0e2ba77a10681fb3164)
++++ b/app/build.gradle.kts	(date 1732576778000)
+@@ -6,11 +6,11 @@
+ }
+ 
+ android {
+-    namespace = "org.iesharia.aplicaciontareas"
++    namespace = "com.example.aplicaciontareas"
+     compileSdk = 35
+ 
+     defaultConfig {
+-        applicationId = "org.iesharia.aplicaciontareas"
++        applicationId = "com.example.aplicaciontareas"
+         minSdk = 35
+         targetSdk = 35
+         versionCode = 1
+@@ -41,22 +41,20 @@
+ }
+ 
+ dependencies {
+-    // Jetpack Compose
+-    implementation (libs.androidx.activity.compose.v172)
+-    implementation (libs.ui)
+-    implementation (libs.androidx.material)
+-    implementation (libs.ui.tooling.preview)
++    implementation(libs.androidx.activity.compose.v172)
++    implementation(libs.ui)
++    implementation(libs.androidx.material)
++    implementation(libs.ui.tooling.preview)
+ 
+     // Room
+-    implementation (libs.androidx.room.runtime)
+-    ksp (libs.androidx.room.compiler)
+-    implementation (libs.androidx.room.ktx)
++    implementation(libs.androidx.room.runtime)
++    ksp(libs.androidx.room.compiler)
++    implementation(libs.androidx.room.ktx)
+ 
+     // Lifecycle
+-    implementation (libs.androidx.lifecycle.runtime.ktx.v261)
++    implementation(libs.androidx.lifecycle.runtime.ktx.v261)
+ 
+     implementation(libs.androidx.core.ktx)
+-    implementation(libs.androidx.lifecycle.runtime.ktx)
+     implementation(libs.androidx.activity.compose)
+     implementation(platform(libs.androidx.compose.bom))
+     implementation(libs.androidx.ui)

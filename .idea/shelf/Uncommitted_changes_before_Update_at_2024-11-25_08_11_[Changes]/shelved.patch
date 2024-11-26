@@ -1,0 +1,114 @@
+Index: app/src/main/java/org/iesharia/aplicacintareas/data/AppDataBase.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.iesharia.aplicacintareas.data\n\nimport android.content.Context\nimport androidx.room.Database\nimport androidx.room.Room\nimport androidx.room.RoomDatabase\n\n\n@Database(entities = [Tarea::class, TipoTarea::class], version = 1)\nabstract class AppDataBase : RoomDatabase() {\n\n    abstract fun TareaDao(): TareaDao\n\n    companion object {\n        @Volatile\n        private var INSTANCE: Database? = null\n\n        fun getDatabase(context: Context): Database {\n            return INSTANCE ?: synchronized(this) {\n                val instance = Room.databaseBuilder(\n                    context.applicationContext,\n                    AppDatabase::class.java,\n                    \"tareas_database\"\n                ).build()\n                INSTANCE = instance\n                instance\n            }\n        }\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/org/iesharia/aplicacintareas/data/AppDataBase.kt b/app/src/main/java/org/iesharia/aplicacintareas/data/AppDataBase.kt
+--- a/app/src/main/java/org/iesharia/aplicacintareas/data/AppDataBase.kt	(revision bba858c0f509d4451f3bf0e2ba77a10681fb3164)
++++ b/app/src/main/java/org/iesharia/aplicacintareas/data/AppDataBase.kt	(date 1732197437093)
+@@ -5,7 +5,6 @@
+ import androidx.room.Room
+ import androidx.room.RoomDatabase
+ 
+-
+ @Database(entities = [Tarea::class, TipoTarea::class], version = 1)
+ abstract class AppDataBase : RoomDatabase() {
+ 
+@@ -13,9 +12,9 @@
+ 
+     companion object {
+         @Volatile
+-        private var INSTANCE: Database? = null
++        private var INSTANCE: AppDatabase? = null
+ 
+-        fun getDatabase(context: Context): Database {
++        fun getDatabase(context: Context): AppDatabase {
+             return INSTANCE ?: synchronized(this) {
+                 val instance = Room.databaseBuilder(
+                     context.applicationContext,
+Index: app/src/main/java/org/iesharia/aplicacintareas/model/TareasRepository.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.iesharia.aplicacintareas.model\n\nclass TareasRepository {\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/org/iesharia/aplicacintareas/model/TareasRepository.kt b/app/src/main/java/org/iesharia/aplicacintareas/model/TareasRepository.kt
+--- a/app/src/main/java/org/iesharia/aplicacintareas/model/TareasRepository.kt	(revision bba858c0f509d4451f3bf0e2ba77a10681fb3164)
++++ b/app/src/main/java/org/iesharia/aplicacintareas/model/TareasRepository.kt	(date 1732196958354)
+@@ -1,4 +1,40 @@
+ package org.iesharia.aplicacintareas.model
+ 
+-class TareasRepository {
++import kotlinx.coroutines.Dispatchers
++import kotlinx.coroutines.withContext
++import org.iesharia.aplicacintareas.data.Tarea
++import org.iesharia.aplicacintareas.data.TareaDao
++import org.iesharia.aplicacintareas.data.TipoTarea
++import org.iesharia.aplicacintareas.data.TareaDao.TareaConTipo
++
++class TareasRepository(private val tareaDao: TareaDao) {
++
++    suspend fun insertarTarea(tarea: Tarea){
++        withContext(Dispatchers.IO){
++            tareaDao.insertarTarea(tarea)
++        }
++    }
++
++    suspend fun insertarTipoTarea(tipoTarea: TipoTarea){
++        withContext(Dispatchers.IO){
++            tareaDao.insertarTipoTarea(tipoTarea)
++        }
++    }
++
++    suspend fun getTareasConTipos(): List<TareaConTipo>{
++        return withContext(Dispatchers.IO){
++            tareaDao.getTareasConTipos()
++        }
++    }
++
++    suspend fun updateTarea(tarea: Tarea) {
++        withContext(Dispatchers.IO) {
++            tareaDao.updateTarea(tarea)
++        }
++    }
++    suspend fun deleteTarea(tarea: Tarea){
++        withContext(Dispatchers.IO){
++            tareaDao.deleteTarea(tarea)
++        }
++    }
+ }
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"VcsDirectoryMappings\" defaultProject=\"true\" />\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+--- a/.idea/vcs.xml	(revision bba858c0f509d4451f3bf0e2ba77a10681fb3164)
++++ b/.idea/vcs.xml	(date 1732197440819)
+@@ -1,4 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="VcsDirectoryMappings" defaultProject="true" />
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++  </component>
+ </project>
+\ No newline at end of file
+Index: app/src/main/java/org/iesharia/aplicacintareas/iu/Interfaz.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/org/iesharia/aplicacintareas/iu/Interfaz.kt b/app/src/main/java/org/iesharia/aplicacintareas/iu/Interfaz.kt
+new file mode 100644
+--- /dev/null	(date 1732522288571)
++++ b/app/src/main/java/org/iesharia/aplicacintareas/iu/Interfaz.kt	(date 1732522288571)
+@@ -0,0 +1,2 @@
++package org.iesharia.aplicacintareas.iu
++
