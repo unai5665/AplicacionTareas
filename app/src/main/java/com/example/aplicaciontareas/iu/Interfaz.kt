@@ -220,6 +220,12 @@ fun TareasScreen(repository: TareasRepository) {
 
 
                     TextField(
+                        value = nuevoTipo,
+                        onValueChange = { nuevoTipo = it },
+                        label = { Text("Nuevo Tipo") },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    TextField(
                         value = nuevoTitulo,
                         onValueChange = { nuevoTitulo = it },
                         label = { Text("Nuevo Título") },
@@ -231,12 +237,7 @@ fun TareasScreen(repository: TareasRepository) {
                         label = { Text("Nueva Descripción") },
                         modifier = Modifier.fillMaxWidth()
                     )
-                    TextField(
-                        value = nuevoTipo,
-                        onValueChange = { nuevoTipo = it },
-                        label = { Text("Nuevo Tipo") },
-                        modifier = Modifier.fillMaxWidth()
-                    )
+
 
                     Row(
                         modifier = Modifier
