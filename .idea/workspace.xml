@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="08330748-5db8-443b-b706-9d89f1c7fe4e" name="Changes" comment="Renombrado archivo DataBase a AppDataBase.kt" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=/home/unai/.android/avd/Medium_Phone_API_35_1.avd)]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/app">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="AplicaciónTareas" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="AplicaciónTareas" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="AplicaciónTareas" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="AplicaciónTareas" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Interface" />
+        <option value="Kotlin Class" />
+        <option value="Kotlin File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;unai5665&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/unai5665/AplicacionTareas.git&quot;,
+    &quot;accountId&quot;: &quot;39691cbd-594b-469d-a377-c0dbd2f04fc1&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2p9ter0DXe57t6fs2AYpPKke23x" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Android App.app.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/unai/AndroidStudioProjects/AplicacionTareas"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="AplicaciónTareas.app.main" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="RESTORE_ENABLED" value="false" />
+      <option name="RESTORE_FILE" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Hybrid>
+      <Java>
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Java>
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="08330748-5db8-443b-b706-9d89f1c7fe4e" name="Changes" comment="" />
+      <created>1732190216942</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1732190216942</updated>
+    </task>
+    <task id="LOCAL-00001" summary="añadidas dependencias de Room">
+      <option name="closed" value="true" />
+      <created>1732190619509</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1732190619509</updated>
+    </task>
+    <task id="LOCAL-00002" summary="creada carpeta data">
+      <option name="closed" value="true" />
+      <created>1732190780887</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1732190780887</updated>
+    </task>
+    <task id="LOCAL-00003" summary="creado archivo Tarea.kt">
+      <option name="closed" value="true" />
+      <created>1732190985179</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1732190985179</updated>
+    </task>
+    <task id="LOCAL-00004" summary="importado Entity y PrimaryKey al archivo Tarea.kt">
+      <option name="closed" value="true" />
+      <created>1732191013188</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1732191013188</updated>
+    </task>
+    <task id="LOCAL-00005" summary="creado entidad Tarea">
+      <option name="closed" value="true" />
+      <created>1732191874629</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1732191874629</updated>
+    </task>
+    <task id="LOCAL-00006" summary="creado entidad TipoTarea">
+      <option name="closed" value="true" />
+      <created>1732191890781</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1732191890781</updated>
+    </task>
+    <task id="LOCAL-00007" summary="creado archivo TareaDao.kt">
+      <option name="closed" value="true" />
+      <created>1732191943183</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1732191943183</updated>
+    </task>
+    <task id="LOCAL-00008" summary="importado room">
+      <option name="closed" value="true" />
+      <created>1732192038116</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1732192038116</updated>
+    </task>
+    <task id="LOCAL-00009" summary="corregido valor erroneo en la entidad Tarea">
+      <option name="closed" value="true" />
+      <created>1732192281305</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1732192281305</updated>
+    </task>
+    <task id="LOCAL-00010" summary="añadida funcion para insertar Tarea">
+      <option name="closed" value="true" />
+      <created>1732192554343</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1732192554343</updated>
+    </task>
+    <task id="LOCAL-00011" summary="añadida funcion para insertar un Tipo de Tarea">
+      <option name="closed" value="true" />
+      <created>1732192590814</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1732192590814</updated>
+    </task>
+    <task id="LOCAL-00012" summary="añadida consulta para obtener las tareas con tipo">
+      <option name="closed" value="true" />
+      <created>1732193205581</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1732193205581</updated>
+    </task>
+    <task id="LOCAL-00013" summary="añadida funcion para optener una lista de las tareas con tipo">
+      <option name="closed" value="true" />
+      <created>1732193331742</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1732193331742</updated>
+    </task>
+    <task id="LOCAL-00014" summary="añadida funcion para actualizar la tarea">
+      <option name="closed" value="true" />
+      <created>1732193414080</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1732193414080</updated>
+    </task>
+    <task id="LOCAL-00015" summary="añadida funcion para eliminar la tarea">
+      <option name="closed" value="true" />
+      <created>1732193439109</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1732193439109</updated>
+    </task>
+    <task id="LOCAL-00016" summary="añadida clase TareaConTipo">
+      <option name="closed" value="true" />
+      <created>1732193824243</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1732193824243</updated>
+    </task>
+    <task id="LOCAL-00017" summary="creado archivo DataBase.kt">
+      <option name="closed" value="true" />
+      <created>1732193920255</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1732193920255</updated>
+    </task>
+    <task id="LOCAL-00018" summary="definida base de datos DataBase">
+      <option name="closed" value="true" />
+      <created>1732195202645</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1732195202645</updated>
+    </task>
+    <task id="LOCAL-00019" summary="creada carpeta model y archivo TareasRepository.kt">
+      <option name="closed" value="true" />
+      <created>1732196259055</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1732196259055</updated>
+    </task>
+    <task id="LOCAL-00020" summary="eliminada importacion duplicada">
+      <option name="closed" value="true" />
+      <created>1732196319331</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1732196319331</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Renombrado archivo DataBase a AppDataBase.kt">
+      <option name="closed" value="true" />
+      <created>1732197312717</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1732197312717</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="añadidas dependencias de Room" />
+    <MESSAGE value="creada carpeta data" />
+    <MESSAGE value="creado archivo Tarea.kt" />
+    <MESSAGE value="importado Entity y PrimaryKey al archivo Tarea.kt" />
+    <MESSAGE value="creado entidad Tarea" />
+    <MESSAGE value="creado entidad TipoTarea" />
+    <MESSAGE value="creado archivo TareaDao.kt" />
+    <MESSAGE value="importado room" />
+    <MESSAGE value="corregido valor erroneo en la entidad Tarea" />
+    <MESSAGE value="añadida funcion para insertar Tarea" />
+    <MESSAGE value="añadida funcion para insertar un Tipo de Tarea" />
+    <MESSAGE value="añadida consulta para obtener las tareas con tipo" />
+    <MESSAGE value="añadida funcion para optener una lista de las tareas con tipo" />
+    <MESSAGE value="añadida funcion para actualizar la tarea" />
+    <MESSAGE value="añadida funcion para eliminar la tarea" />
+    <MESSAGE value="añadida clase TareaConTipo" />
+    <MESSAGE value="creado archivo DataBase.kt" />
+    <MESSAGE value="definida base de datos DataBase" />
+    <MESSAGE value="creada carpeta model y archivo TareasRepository.kt" />
+    <MESSAGE value="eliminada importacion duplicada" />
+    <MESSAGE value="Renombrado archivo DataBase a AppDataBase.kt" />
+    <option name="LAST_COMMIT_MESSAGE" value="Renombrado archivo DataBase a AppDataBase.kt" />
+  </component>
+</project>
