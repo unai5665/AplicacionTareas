@@ -30,7 +30,7 @@ Partiremos de un borrador realizado en Figma para definir la interfaz de usuario
 
 ### Boceto de Figma
 
-![Boceto de Figma](ruta/a/la/imagen/ficha_de_figma.png)
+![Boceto de Figma](https://github.com/unai5665/AplicacionTareas/blob/master/figma.png)
 
 Este es el diseño inicial realizado en Figma, que nos servirá como base para la implementación de la UI en la aplicación.
 
