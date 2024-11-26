@@ -10,6 +10,16 @@ import org.iesharia.aplicaciontareas.data.TareaDao.TareaConTipo
 
 class TareasRepository(private val tareaDao: TareaDao) {
 
+    suspend fun eliminarTipoYTareas(tipoTarea: TipoTarea) {
+        withContext(Dispatchers.IO) {
+            // Eliminar todas las tareas asociadas a este tipo
+            tareaDao.eliminarTareasPorTipo(tipoTarea.id)
+
+            // Eliminar el tipo de tarea
+            tareaDao.eliminarTipoTarea(tipoTarea)
+        }
+    }
+
     suspend fun insertTarea(tarea: Tarea): Long {
         return withContext(Dispatchers.IO) {
             tareaDao.insertarTarea(tarea)  // Esto devuelve el ID generado.
