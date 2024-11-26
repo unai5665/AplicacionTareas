@@ -45,10 +45,10 @@ org.iesharia.aplicaciontareas.app-sqlite-framework-2.4.0-43 /home/unai/.gradle/c
 org.iesharia.aplicaciontareas.app-material-release-44 /home/unai/.gradle/caches/8.9/transforms/eab0cd1e2cb96e09b15562fa93f1deb9/transformed/material-release/res
 org.iesharia.aplicaciontareas.app-ui-unit-release-45 /home/unai/.gradle/caches/8.9/transforms/f2372245b56ab78bf27084d309424e05/transformed/ui-unit-release/res
 org.iesharia.aplicaciontareas.app-customview-poolingcontainer-1.0.0-46 /home/unai/.gradle/caches/8.9/transforms/f46cf62c97afd2234eb6e628e5d42032/transformed/customview-poolingcontainer-1.0.0/res
-org.iesharia.aplicaciontareas.app-pngs-47 /home/unai/AndroidStudioProjects/AplicacionTareas/app/build/generated/res/pngs/debug
-org.iesharia.aplicaciontareas.app-resValues-48 /home/unai/AndroidStudioProjects/AplicacionTareas/app/build/generated/res/resValues/debug
-org.iesharia.aplicaciontareas.app-packageDebugResources-49 /home/unai/AndroidStudioProjects/AplicacionTareas/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
-org.iesharia.aplicaciontareas.app-packageDebugResources-50 /home/unai/AndroidStudioProjects/AplicacionTareas/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
-org.iesharia.aplicaciontareas.app-debug-51 /home/unai/AndroidStudioProjects/AplicacionTareas/app/build/intermediates/merged_res/debug/mergeDebugResources
-org.iesharia.aplicaciontareas.app-debug-52 /home/unai/AndroidStudioProjects/AplicacionTareas/app/src/debug/res
-org.iesharia.aplicaciontareas.app-main-53 /home/unai/AndroidStudioProjects/AplicacionTareas/app/src/main/res
+org.iesharia.aplicaciontareas.app-pngs-47 /home/unai/AndroidStudioProjects/AplicacionTareas-master/app/build/generated/res/pngs/debug
+org.iesharia.aplicaciontareas.app-resValues-48 /home/unai/AndroidStudioProjects/AplicacionTareas-master/app/build/generated/res/resValues/debug
+org.iesharia.aplicaciontareas.app-packageDebugResources-49 /home/unai/AndroidStudioProjects/AplicacionTareas-master/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+org.iesharia.aplicaciontareas.app-packageDebugResources-50 /home/unai/AndroidStudioProjects/AplicacionTareas-master/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+org.iesharia.aplicaciontareas.app-debug-51 /home/unai/AndroidStudioProjects/AplicacionTareas-master/app/build/intermediates/merged_res/debug/mergeDebugResources
+org.iesharia.aplicaciontareas.app-debug-52 /home/unai/AndroidStudioProjects/AplicacionTareas-master/app/src/debug/res
+org.iesharia.aplicaciontareas.app-main-53 /home/unai/AndroidStudioProjects/AplicacionTareas-master/app/src/main/res
