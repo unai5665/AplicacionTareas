@@ -13,6 +13,10 @@ interface TareaDao {
     @Query("SELECT * FROM tipostareas WHERE titulo = :titulo LIMIT 1")
     suspend fun getTipoTareaPorTitulo(titulo: String): TipoTarea?
 
+    @Query("SELECT * FROM tipostareas")
+    suspend fun getAllTiposTareas(): List<TipoTarea>
+
+
 
     @Insert
     suspend fun insertarTipoTarea(tipoTarea: TipoTarea)

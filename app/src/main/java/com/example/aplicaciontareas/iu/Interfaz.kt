@@ -24,8 +24,8 @@ import org.iesharia.aplicaciontareas.model.TareasRepository
 
 
 val azulCielo = Color(0xFF00C4FF)
-val rosaFucsia = Color(0xFFFF1493)
-val rosaLavanda = Color(0xFFEE82EE)
+val rosaFucsia = Color(0xFF60F5D7)
+val rosaLavanda = Color(0xFF5FDAE0)
 
 @Composable
 fun TareasScreen(repository: TareasRepository) {
@@ -89,43 +89,49 @@ fun TareasScreen(repository: TareasRepository) {
 
             Button(
                 onClick = {
-                    scope.launch {
-                        val tipoExistente = repository.getTipoTareaPorTitulo(tipo)
-                        val tipoId = if (tipoExistente != null) {
-                            tipoExistente.id
-                        } else {
+                    // Validar si los campos están vacíos
+                    if (titulo.isNotEmpty() && tipo.isNotEmpty()) {
+                        scope.launch {
+                            val tipoExistente = repository.getTipoTareaPorTitulo(tipo)
+                            val tipoId = if (tipoExistente != null) {
+                                tipoExistente.id
+                            } else {
+                                val nuevoTipoTarea = TipoTarea(titulo = tipo)
+                                repository.insertTipoTarea(nuevoTipoTarea)
+                                repository.getTipoTareaPorTitulo(tipo)?.id ?: 0
+                            }
 
-                            val nuevoTipoTarea = TipoTarea(titulo = tipo)
-                            repository.insertTipoTarea(nuevoTipoTarea)
-                            repository.getTipoTareaPorTitulo(tipo)?.id ?: 0
+                            val nuevaTarea = Tarea(
+                                titulo = titulo,
+                                descripcion = descripcion,
+                                id_tipostareas = tipoId
+                            )
+                            val idGenerado = repository.insertTarea(nuevaTarea)
+
+                            val tareaConTipo = TareaDao.TareaConTipo(
+                                id = idGenerado.toInt(),
+                                titulo = nuevaTarea.titulo,
+                                descripcion = nuevaTarea.descripcion,
+                                tipo = tipo
+                            )
+                            tareas.add(tareaConTipo)
+
+                            // Limpiar los campos del formulario
+                            titulo = ""
+                            descripcion = ""
+                            tipo = ""
                         }
-
-
-                        val nuevaTarea = Tarea(
-                            titulo = titulo,
-                            descripcion = descripcion,
-                            id_tipostareas = tipoId
-                        )
-                        val idGenerado = repository.insertTarea(nuevaTarea)
-
-                        val tareaConTipo = TareaDao.TareaConTipo(
-                            id = idGenerado.toInt(),
-                            titulo = nuevaTarea.titulo,
-                            descripcion = nuevaTarea.descripcion,
-                            tipo = tipo
-                        )
-                        tareas.add(tareaConTipo)
-
-
-                        titulo = ""
-                        descripcion = ""
-                        tipo = ""
+                    } else {
+                        // Mostrar mensaje de error si los campos están vacíos
+                        // Ejemplo: Mostrar un Toast o un Snackbar
+                        println("Todos los campos son obligatorios.")
                     }
                 },
                 modifier = Modifier.padding(top = 16.dp)
             ) {
                 Text("Agregar Tarea", color = Color.White)
             }
+
 
             LazyColumn(modifier = Modifier
                 .fillMaxSize()

@@ -21,6 +21,13 @@ class TareasRepository(private val tareaDao: TareaDao) {
             tareaDao.getTipoTareaPorTitulo(titulo)
         }
     }
+    suspend fun getAllTiposTareas(): List<TipoTarea> {
+        return withContext(Dispatchers.IO) {
+            tareaDao.getAllTiposTareas()
+        }
+    }
+
+
 
 
 
