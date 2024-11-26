@@ -97,7 +97,7 @@ public final class DataBase_Impl extends DataBase {
         final TableInfo _infoTareas = new TableInfo("tareas", _columnsTareas, _foreignKeysTareas, _indicesTareas);
         final TableInfo _existingTareas = TableInfo.read(db, "tareas");
         if (!_infoTareas.equals(_existingTareas)) {
-          return new RoomOpenHelper.ValidationResult(false, "tareas(org.iesharia.aplicaciontareas.data.Tarea).\n"
+          return new RoomOpenHelper.ValidationResult(false, "tareas(com.example.aplicaciontareas.data.Tarea).\n"
                   + " Expected:\n" + _infoTareas + "\n"
                   + " Found:\n" + _existingTareas);
         }
@@ -109,7 +109,7 @@ public final class DataBase_Impl extends DataBase {
         final TableInfo _infoTipostareas = new TableInfo("tipostareas", _columnsTipostareas, _foreignKeysTipostareas, _indicesTipostareas);
         final TableInfo _existingTipostareas = TableInfo.read(db, "tipostareas");
         if (!_infoTipostareas.equals(_existingTipostareas)) {
-          return new RoomOpenHelper.ValidationResult(false, "tipostareas(org.iesharia.aplicaciontareas.data.TipoTarea).\n"
+          return new RoomOpenHelper.ValidationResult(false, "tipostareas(com.example.aplicaciontareas.data.TipoTarea).\n"
                   + " Expected:\n" + _infoTipostareas + "\n"
                   + " Found:\n" + _existingTipostareas);
         }

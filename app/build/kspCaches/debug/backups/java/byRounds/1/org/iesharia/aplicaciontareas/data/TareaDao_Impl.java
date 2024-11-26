@@ -12,6 +12,8 @@ import androidx.room.RoomSQLiteQuery;
 import androidx.room.util.CursorUtil;
 import androidx.room.util.DBUtil;
 import androidx.sqlite.db.SupportSQLiteStatement;
+import com.example.aplicaciontareas.data.Tarea;
+import com.example.aplicaciontareas.data.TipoTarea;
 import java.lang.Class;
 import java.lang.Exception;
 import java.lang.Long;
@@ -216,9 +218,9 @@ public final class TareaDao_Impl implements TareaDao {
   public Object getTareasConTipos(
       final Continuation<? super List<TareaDao.TareaConTipo>> $completion) {
     final String _sql = "\n"
-            + "        SELECT Tareas.*, TiposTareas.titulo AS tipo\n"
+            + "        SELECT tareas.*, tipostareas.titulo AS tipo\n"
             + "        FROM tareas\n"
-            + "        INNER JOIN tipostareas ON Tareas.id_tipostareas = tipostareas.id\n"
+            + "        INNER JOIN tipostareas ON tareas.id_tipostareas = tipostareas.id\n"
             + "    ";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();

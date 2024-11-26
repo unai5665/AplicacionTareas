@@ -3,6 +3,7 @@ package org.iesharia.aplicaciontareas.data;
 import android.database.Cursor;
 import android.os.CancellationSignal;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.CoroutinesRoom;
 import androidx.room.EntityDeletionOrUpdateAdapter;
 import androidx.room.EntityInsertionAdapter;
@@ -11,6 +12,8 @@ import androidx.room.RoomSQLiteQuery;
 import androidx.room.util.CursorUtil;
 import androidx.room.util.DBUtil;
 import androidx.sqlite.db.SupportSQLiteStatement;
+import com.example.aplicaciontareas.data.Tarea;
+import com.example.aplicaciontareas.data.TipoTarea;
 import java.lang.Class;
 import java.lang.Exception;
 import java.lang.Long;
@@ -177,12 +180,47 @@ public final class TareaDao_Impl implements TareaDao {
   }
 
   @Override
+  public Object getTipoTareaPorTitulo(final String titulo,
+      final Continuation<? super TipoTarea> $completion) {
+    final String _sql = "SELECT * FROM tipostareas WHERE titulo = ? LIMIT 1";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    _statement.bindString(_argIndex, titulo);
+    final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
+    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<TipoTarea>() {
+      @Override
+      @Nullable
+      public TipoTarea call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
+          final int _cursorIndexOfTitulo = CursorUtil.getColumnIndexOrThrow(_cursor, "titulo");
+          final TipoTarea _result;
+          if (_cursor.moveToFirst()) {
+            final int _tmpId;
+            _tmpId = _cursor.getInt(_cursorIndexOfId);
+            final String _tmpTitulo;
+            _tmpTitulo = _cursor.getString(_cursorIndexOfTitulo);
+            _result = new TipoTarea(_tmpId,_tmpTitulo);
+          } else {
+            _result = null;
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+          _statement.release();
+        }
+      }
+    }, $completion);
+  }
+
+  @Override
   public Object getTareasConTipos(
       final Continuation<? super List<TareaDao.TareaConTipo>> $completion) {
     final String _sql = "\n"
-            + "        SElECT Tareas.*, TiposTareas.titulo AS tipo\n"
+            + "        SELECT tareas.*, tipostareas.titulo AS tipo\n"
             + "        FROM tareas\n"
-            + "        INNER JOIN tipostareas ON Tareas.id_tipostareas = tipostareas.id\n"
+            + "        INNER JOIN tipostareas ON tareas.id_tipostareas = tipostareas.id\n"
             + "    ";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
