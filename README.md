@@ -38,7 +38,7 @@ Este es el diseño inicial realizado en Figma, que nos servirá como base para l
 
 Aquí puedes ver cómo se ve la interfaz de la aplicación:
 
-![Interfaz de la Aplicación](ruta/a/la/imagen/interfaz_aplicacion.png)
+![Interfaz de la Aplicación](https://github.com/unai5665/AplicacionTareas/blob/master/interfaz.png)
 
 Esta es la representación final de la aplicación después de ser implementada siguiendo el diseño original de Figma.
 
