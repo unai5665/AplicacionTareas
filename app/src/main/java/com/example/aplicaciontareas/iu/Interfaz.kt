@@ -23,9 +23,9 @@ import kotlinx.coroutines.launch
 import org.iesharia.aplicaciontareas.data.TareaDao
 import org.iesharia.aplicaciontareas.model.TareasRepository
 
-val azulCielo = Color(0xFF00C4FF)
-val rosaFucsia = Color(0xFF60F5D7)
-val rosaLavanda = Color(0xFF5FDAE0)
+val azulCielo = Color(0xFF2F2F2F)
+val rosaFucsia = Color(0xFF8C8C8C)
+val rosaLavanda = Color(0xFFA9A9A9)
 
 @Composable
 fun TareasScreen(repository: TareasRepository) {
@@ -44,6 +44,62 @@ fun TareasScreen(repository: TareasRepository) {
     var tipoSeleccionado by remember { mutableStateOf<TipoTarea?>(null) }
     var mostrarDialogoNuevoTipo by remember { mutableStateOf(false) }
     var menuExpandido by remember { mutableStateOf(false) }
+    var mostrarDialogoEditarTipo by remember { mutableStateOf(false) }
+
+    if (mostrarDialogoEditarTipo && tipoSeleccionado != null) {
+        Dialog(onDismissRequest = { mostrarDialogoEditarTipo = false }) {
+            Surface(modifier = Modifier.padding(16.dp)) {
+                var nuevoTitulo by remember { mutableStateOf(tipoSeleccionado!!.titulo) }
+
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text("Editar Tipo", style = TextStyle(fontSize = 18.sp))
+                    TextField(
+                        value = nuevoTitulo,
+                        onValueChange = { nuevoTitulo = it },
+                        placeholder = { Text("Nuevo Título del Tipo") },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 16.dp),
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        Button(onClick = { mostrarDialogoEditarTipo = false }) {
+                            Text("Cancelar")
+                        }
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Button(onClick = {
+                            if (nuevoTitulo.isNotEmpty()) {
+                                scope.launch {
+                                    // Actualizar tipo en la base de datos
+                                    val tipoActualizado = tipoSeleccionado!!.copy(titulo = nuevoTitulo)
+                                    repository.updateTipoTarea(tipoActualizado)
+
+                                    // Recargar los tipos y tareas actualizados
+                                    tiposTareas.clear()
+                                    tiposTareas.addAll(repository.getAllTiposTareas())
+
+                                    tareas.clear()
+                                    tareas.addAll(repository.getTareasConTipos())
+
+                                    if (tipoSeleccionado?.id == tipoActualizado.id) {
+                                        tipoSeleccionado = tipoActualizado
+                                    }
+
+                                    // Cerrar el diálogo
+                                    mostrarDialogoEditarTipo = false
+                                }
+                            }
+                        }) {
+                            Text("Guardar")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     if (mostrarDialogoNuevoTipo) {
         Dialog(onDismissRequest = { mostrarDialogoNuevoTipo = false }) {
@@ -200,12 +256,28 @@ fun TareasScreen(repository: TareasRepository) {
                                             tiposTareas.remove(tipo)
                                             tareas.clear()
                                             tareas.addAll(repository.getTareasConTipos())
+                                            
+                                            if (tipoSeleccionado == tipo) {
+                                                tipoSeleccionado = null
+                                            }
                                         }
                                     }
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.Delete,
                                         contentDescription = "Eliminar Tipo",
+                                        tint = Color.Black
+                                    )
+                                }
+                                IconButton(
+                                    onClick = {
+                                        tipoSeleccionado = tipo // Guarda el tipo para editarlo
+                                        mostrarDialogoEditarTipo = true
+                                    }
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Edit,
+                                        contentDescription = "Editar Tipo",
                                         tint = Color.Black
                                     )
                                 }
