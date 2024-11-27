@@ -20,6 +20,12 @@ class TareasRepository(private val tareaDao: TareaDao) {
         }
     }
 
+    suspend fun updateTipoTarea(tipoTarea: TipoTarea) {
+        withContext(Dispatchers.IO) {
+            tareaDao.updateTipoTarea(tipoTarea)
+        }
+    }
+
 
     suspend fun insertTarea(tarea: Tarea): Long {
         return withContext(Dispatchers.IO) {
