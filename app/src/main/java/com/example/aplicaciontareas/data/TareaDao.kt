@@ -13,6 +13,9 @@ interface TareaDao {
     @Delete
     suspend fun eliminarTipoTarea(tipoTarea: TipoTarea)
 
+    @Update
+    suspend fun updateTipoTarea(tipoTarea: TipoTarea)
+
 
     @Insert
     suspend fun insertarTarea(tarea: Tarea): Long
