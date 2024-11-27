@@ -20,17 +20,14 @@ class TareasRepository(private val tareaDao: TareaDao) {
         }
     }
 
+
     suspend fun insertTarea(tarea: Tarea): Long {
         return withContext(Dispatchers.IO) {
             tareaDao.insertarTarea(tarea)  // Esto devuelve el ID generado.
         }
     }
 
-    suspend fun getTipoTareaPorTitulo(titulo: String): TipoTarea? {
-        return withContext(Dispatchers.IO) {
-            tareaDao.getTipoTareaPorTitulo(titulo)
-        }
-    }
+
     suspend fun getAllTiposTareas(): List<TipoTarea> {
         return withContext(Dispatchers.IO) {
             tareaDao.getAllTiposTareas()

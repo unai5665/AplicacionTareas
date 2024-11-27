@@ -1,6 +1,7 @@
 package org.iesharia.aplicaciontareas.iu
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -22,7 +23,6 @@ import kotlinx.coroutines.launch
 import org.iesharia.aplicaciontareas.data.TareaDao
 import org.iesharia.aplicaciontareas.model.TareasRepository
 
-
 val azulCielo = Color(0xFF00C4FF)
 val rosaFucsia = Color(0xFF60F5D7)
 val rosaLavanda = Color(0xFF5FDAE0)
@@ -30,31 +30,115 @@ val rosaLavanda = Color(0xFF5FDAE0)
 @Composable
 fun TareasScreen(repository: TareasRepository) {
     val tareas = remember { mutableStateListOf<TareaDao.TareaConTipo>() }
+    val tiposTareas = remember { mutableStateListOf<TipoTarea>() }
     val scope = rememberCoroutineScope()
     var editarTarea by remember { mutableStateOf<TareaDao.TareaConTipo?>(null) }
 
-
     LaunchedEffect(Unit) {
         tareas.addAll(repository.getTareasConTipos())
+        tiposTareas.addAll(repository.getAllTiposTareas()) // Cargar los tipos al iniciar
+    }
+
+    var titulo by remember { mutableStateOf("") }
+    var descripcion by remember { mutableStateOf("") }
+    var tipoSeleccionado by remember { mutableStateOf<TipoTarea?>(null) }
+    var mostrarDialogoNuevoTipo by remember { mutableStateOf(false) }
+    var menuExpandido by remember { mutableStateOf(false) }
+
+    if (mostrarDialogoNuevoTipo) {
+        Dialog(onDismissRequest = { mostrarDialogoNuevoTipo = false }) {
+            Surface(modifier = Modifier.padding(16.dp)) {
+                var nuevoTipoTitulo by remember { mutableStateOf("") }
+
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text("Agregar Nuevo Tipo", style = TextStyle(fontSize = 18.sp))
+                    TextField(
+                        value = nuevoTipoTitulo,
+                        onValueChange = { nuevoTipoTitulo = it },
+                        placeholder = { Text("Título del Tipo") },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 16.dp),
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        Button(onClick = { mostrarDialogoNuevoTipo = false }) {
+                            Text("Cancelar")
+                        }
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Button(onClick = {
+                            if (nuevoTipoTitulo.isNotEmpty()) {
+                                scope.launch {
+                                    val nuevoTipo = TipoTarea(titulo = nuevoTipoTitulo)
+                                    repository.insertTipoTarea(nuevoTipo)
+                                    tiposTareas.clear()
+                                    tiposTareas.addAll(repository.getAllTiposTareas())
+                                }
+                                mostrarDialogoNuevoTipo = false
+                            }
+                        }) {
+                            Text("Agregar")
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if (editarTarea != null) {
+        Dialog(onDismissRequest = { editarTarea = null }) {
+            Surface(modifier = Modifier.padding(16.dp)) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    var nuevoTitulo by remember { mutableStateOf(editarTarea!!.titulo) }
+                    var nuevaDescripcion by remember { mutableStateOf(editarTarea!!.descripcion) }
+
+                    TextField(
+                        value = nuevoTitulo,
+                        onValueChange = { nuevoTitulo = it },
+                        placeholder = { Text("Nuevo Título") }
+                    )
+                    TextField(
+                        value = nuevaDescripcion,
+                        onValueChange = { nuevaDescripcion = it },
+                        placeholder = { Text("Nueva Descripción") }
+                    )
+                    Row(
+                        horizontalArrangement = Arrangement.End,
+                        modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
+                    ) {
+                        Button(onClick = { editarTarea = null }) {
+                            Text("Cancelar")
+                        }
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Button(onClick = {
+                            scope.launch {
+                                repository.updateTarea(
+                                    Tarea(
+                                        id = editarTarea!!.id,
+                                        titulo = nuevoTitulo,
+                                        descripcion = nuevaDescripcion,
+                                        id_tipostareas = tiposTareas.find { it.titulo == editarTarea!!.tipo }?.id ?: 0
+                                    )
+                                )
+                                editarTarea = null
+                                tareas.clear()
+                                tareas.addAll(repository.getTareasConTipos())
+                            }
+                        }) {
+                            Text("Guardar")
+                        }
+                    }
+                }
+            }
+        }
     }
 
 
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(rosaFucsia)) {
+
+    Box(modifier = Modifier.fillMaxSize().background(rosaFucsia)) {
         Column(modifier = Modifier.padding(16.dp)) {
-
-
-            Text(
-                "Tareas",
-                modifier = Modifier.padding(vertical = 20.dp),
-                style = TextStyle(fontSize = 30.sp, color = Color.Black)
-            )
-
-
-            var titulo by remember { mutableStateOf("") }
-            var descripcion by remember { mutableStateOf("") }
-            var tipo by remember { mutableStateOf("") }
+            Text("Tareas", modifier = Modifier.padding(vertical = 20.dp), style = TextStyle(fontSize = 30.sp))
 
             Row {
                 TextField(
@@ -64,14 +148,6 @@ fun TareasScreen(repository: TareasRepository) {
                     modifier = Modifier
                         .weight(1f)
                         .padding(end = 8.dp)
-                        .background(rosaLavanda)
-                )
-                TextField(
-                    value = tipo,
-                    onValueChange = { tipo = it },
-                    placeholder = { Text("Tipo de Tarea") },
-                    modifier = Modifier
-                        .weight(1f)
                         .background(rosaLavanda)
                 )
             }
@@ -86,45 +162,85 @@ fun TareasScreen(repository: TareasRepository) {
                     .height(50.dp)
             )
 
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp)
+                    .background(rosaLavanda)
+                    .clickable { menuExpandido = !menuExpandido }
+            ) {
+                Text(
+                    text = tipoSeleccionado?.titulo ?: "Seleccionar Tipo",
+                    modifier = Modifier.padding(16.dp),
+                    style = TextStyle(color = Color.Black)
+                )
+                DropdownMenu(
+                    expanded = menuExpandido,
+                    onDismissRequest = { menuExpandido = false }
+                ) {
+                    tiposTareas.forEach { tipo ->
+                        DropdownMenuItem(
+                            onClick = {
+                                tipoSeleccionado = tipo
+                                menuExpandido = false
+                            }
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text(
+                                    text = tipo.titulo,
+                                    modifier = Modifier.weight(1f)
+                                )
+                                IconButton(
+                                    onClick = {
+                                        scope.launch {
+                                            repository.eliminarTipoYTareas(tipo)
+                                            tiposTareas.remove(tipo)
+                                            tareas.clear()
+                                            tareas.addAll(repository.getTareasConTipos())
+                                        }
+                                    }
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Delete,
+                                        contentDescription = "Eliminar Tipo",
+                                        tint = Color.Black
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (tipoSeleccionado != null) {
+                Text("Seleccionado: ${tipoSeleccionado!!.titulo}")
+            }
 
             Button(
                 onClick = {
-                    // Validar si los campos están vacíos
-                    if (titulo.isNotEmpty() && tipo.isNotEmpty()) {
+                    if (titulo.isNotEmpty() && tipoSeleccionado != null) {
                         scope.launch {
-                            val tipoExistente = repository.getTipoTareaPorTitulo(tipo)
-                            val tipoId = if (tipoExistente != null) {
-                                tipoExistente.id
-                            } else {
-                                val nuevoTipoTarea = TipoTarea(titulo = tipo)
-                                repository.insertTipoTarea(nuevoTipoTarea)
-                                repository.getTipoTareaPorTitulo(tipo)?.id ?: 0
-                            }
-
                             val nuevaTarea = Tarea(
                                 titulo = titulo,
                                 descripcion = descripcion,
-                                id_tipostareas = tipoId
+                                id_tipostareas = tipoSeleccionado!!.id
                             )
                             val idGenerado = repository.insertTarea(nuevaTarea)
-
-                            val tareaConTipo = TareaDao.TareaConTipo(
-                                id = idGenerado.toInt(),
-                                titulo = nuevaTarea.titulo,
-                                descripcion = nuevaTarea.descripcion,
-                                tipo = tipo
+                            tareas.add(
+                                TareaDao.TareaConTipo(
+                                    id = idGenerado.toInt(),
+                                    titulo = nuevaTarea.titulo,
+                                    descripcion = nuevaTarea.descripcion,
+                                    tipo = tipoSeleccionado!!.titulo
+                                )
                             )
-                            tareas.add(tareaConTipo)
-
-                            // Limpiar los campos del formulario
                             titulo = ""
                             descripcion = ""
-                            tipo = ""
+                            tipoSeleccionado = null
                         }
-                    } else {
-                        // Mostrar mensaje de error si los campos están vacíos
-                        // Ejemplo: Mostrar un Toast o un Snackbar
-                        println("Todos los campos son obligatorios.")
                     }
                 },
                 modifier = Modifier.padding(top = 16.dp)
@@ -132,6 +248,12 @@ fun TareasScreen(repository: TareasRepository) {
                 Text("Agregar Tarea", color = Color.White)
             }
 
+            Button(
+                onClick = { mostrarDialogoNuevoTipo = true },
+                modifier = Modifier.padding(top = 16.dp)
+            ) {
+                Text("Agregar Nuevo Tipo")
+            }
 
             LazyColumn(modifier = Modifier
                 .fillMaxSize()
@@ -153,7 +275,6 @@ fun TareasScreen(repository: TareasRepository) {
                                     color = Color.Black,
                                     style = TextStyle(fontSize = 15.sp),
                                     modifier = Modifier.padding(end = 15.dp)
-
                                 )
                                 Text(
                                     text = "Título: ${tarea.titulo}",
@@ -164,11 +285,9 @@ fun TareasScreen(repository: TareasRepository) {
                                 Text(
                                     text = "Descripción: ${tarea.descripcion}",
                                     color = Color.Black,
-                                    style = TextStyle(fontSize = 15.sp),
-
-                                    )
+                                    style = TextStyle(fontSize = 15.sp)
+                                )
                             }
-
 
                             Column(
                                 horizontalAlignment = Alignment.End
@@ -179,7 +298,7 @@ fun TareasScreen(repository: TareasRepository) {
                                             id = tarea.id,
                                             titulo = tarea.titulo,
                                             descripcion = tarea.descripcion,
-                                            id_tipostareas = 1
+                                            id_tipostareas = tiposTareas.find { it.titulo == tarea.tipo }?.id ?: 0
                                         )
                                         repository.deleteTarea(tareaEliminar)
                                         tareas.remove(tarea)
@@ -187,111 +306,19 @@ fun TareasScreen(repository: TareasRepository) {
                                 }) {
                                     Icon(
                                         imageVector = Icons.Default.Delete,
-                                        contentDescription = "Eliminar",
-                                        tint = Color.Black
+                                        contentDescription = "Eliminar tarea",
+                                        tint = Color.Red
                                     )
                                 }
-
-                                IconButton(onClick = { editarTarea = tarea }) {
+                                IconButton(onClick = {
+                                    editarTarea = tarea
+                                }) {
                                     Icon(
                                         imageVector = Icons.Default.Edit,
-                                        contentDescription = "Editar",
-                                        tint = Color.Blue
+                                        contentDescription = "Editar tarea"
                                     )
                                 }
-                                Text(
-                                    text = "ID: ${tarea.id}",
-                                    color = Color.Black,
-                                    style = TextStyle(fontSize = 12.sp),
-                                )
                             }
-                        }
-                    }
-                }
-            }
-
-        }
-    }
-
-
-
-
-    if (editarTarea != null) {
-        Dialog(onDismissRequest = { editarTarea = null }) {
-            Surface(modifier = Modifier.padding(16.dp)) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    var nuevoTitulo by remember { mutableStateOf(editarTarea!!.titulo) }
-                    var nuevaDescripcion by remember { mutableStateOf(editarTarea!!.descripcion) }
-                    var nuevoTipo by remember { mutableStateOf(editarTarea!!.tipo) }
-
-
-                    TextField(
-                        value = nuevoTipo,
-                        onValueChange = { nuevoTipo = it },
-                        label = { Text("Nuevo Tipo") },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                    TextField(
-                        value = nuevoTitulo,
-                        onValueChange = { nuevoTitulo = it },
-                        label = { Text("Nuevo Título") },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                    TextField(
-                        value = nuevaDescripcion,
-                        onValueChange = { nuevaDescripcion = it },
-                        label = { Text("Nueva Descripción") },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 16.dp),
-                        horizontalArrangement = Arrangement.End
-                    ) {
-                        Button(onClick = { editarTarea = null }) {
-                            Text("Cancelar")
-                        }
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Button(onClick = {
-                            scope.launch {
-                                // Verificar si el tipo de tarea ya existe
-                                val tipoExistente = repository.getTipoTareaPorTitulo(nuevoTipo)
-                                val tipoId = if (tipoExistente != null) {
-                                    tipoExistente.id
-                                } else {
-                                    // Si no existe, insertarlo
-                                    val nuevoTipoTarea = TipoTarea(titulo = nuevoTipo)
-                                    repository.insertTipoTarea(nuevoTipoTarea)
-                                    repository.getTipoTareaPorTitulo(nuevoTipo)?.id ?: 0
-                                }
-
-                                // Crear la tarea actualizada con el ID del tipo correcto
-                                val tareaActualizada = Tarea(
-                                    id = editarTarea!!.id,
-                                    titulo = nuevoTitulo,
-                                    descripcion = nuevaDescripcion,
-                                    id_tipostareas = tipoId
-                                )
-                                repository.updateTarea(tareaActualizada)
-
-                                // Actualizar la lista local de tareas
-                                val tareaConTipo = TareaDao.TareaConTipo(
-                                    id = tareaActualizada.id,
-                                    titulo = nuevoTitulo,
-                                    descripcion = nuevaDescripcion,
-                                    tipo = nuevoTipo
-                                )
-                                val index = tareas.indexOf(editarTarea!!)
-                                tareas[index] = tareaConTipo
-
-                                // Cerrar el diálogo de edición
-                                editarTarea = null
-                            }
-                        }) {
-                            Text("Guardar")
                         }
                     }
                 }
@@ -299,4 +326,3 @@ fun TareasScreen(repository: TareasRepository) {
         }
     }
 }
-

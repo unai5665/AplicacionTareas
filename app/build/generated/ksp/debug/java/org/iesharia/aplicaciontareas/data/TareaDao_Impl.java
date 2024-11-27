@@ -9,6 +9,7 @@ import androidx.room.EntityDeletionOrUpdateAdapter;
 import androidx.room.EntityInsertionAdapter;
 import androidx.room.RoomDatabase;
 import androidx.room.RoomSQLiteQuery;
+import androidx.room.SharedSQLiteStatement;
 import androidx.room.util.CursorUtil;
 import androidx.room.util.DBUtil;
 import androidx.sqlite.db.SupportSQLiteStatement;
@@ -38,9 +39,13 @@ public final class TareaDao_Impl implements TareaDao {
 
   private final EntityInsertionAdapter<TipoTarea> __insertionAdapterOfTipoTarea;
 
+  private final EntityDeletionOrUpdateAdapter<TipoTarea> __deletionAdapterOfTipoTarea;
+
   private final EntityDeletionOrUpdateAdapter<Tarea> __deletionAdapterOfTarea;
 
   private final EntityDeletionOrUpdateAdapter<Tarea> __updateAdapterOfTarea;
+
+  private final SharedSQLiteStatement __preparedStmtOfEliminarTareasPorTipo;
 
   public TareaDao_Impl(@NonNull final RoomDatabase __db) {
     this.__db = __db;
@@ -74,6 +79,19 @@ public final class TareaDao_Impl implements TareaDao {
         statement.bindString(2, entity.getTitulo());
       }
     };
+    this.__deletionAdapterOfTipoTarea = new EntityDeletionOrUpdateAdapter<TipoTarea>(__db) {
+      @Override
+      @NonNull
+      protected String createQuery() {
+        return "DELETE FROM `tipostareas` WHERE `id` = ?";
+      }
+
+      @Override
+      protected void bind(@NonNull final SupportSQLiteStatement statement,
+          @NonNull final TipoTarea entity) {
+        statement.bindLong(1, entity.getId());
+      }
+    };
     this.__deletionAdapterOfTarea = new EntityDeletionOrUpdateAdapter<Tarea>(__db) {
       @Override
       @NonNull
@@ -102,6 +120,14 @@ public final class TareaDao_Impl implements TareaDao {
         statement.bindString(3, entity.getDescripcion());
         statement.bindLong(4, entity.getId_tipostareas());
         statement.bindLong(5, entity.getId());
+      }
+    };
+    this.__preparedStmtOfEliminarTareasPorTipo = new SharedSQLiteStatement(__db) {
+      @Override
+      @NonNull
+      public String createQuery() {
+        final String _query = "DELETE FROM tareas WHERE id_tipostareas = ?";
+        return _query;
       }
     };
   }
@@ -134,6 +160,25 @@ public final class TareaDao_Impl implements TareaDao {
         __db.beginTransaction();
         try {
           __insertionAdapterOfTipoTarea.insert(tipoTarea);
+          __db.setTransactionSuccessful();
+          return Unit.INSTANCE;
+        } finally {
+          __db.endTransaction();
+        }
+      }
+    }, $completion);
+  }
+
+  @Override
+  public Object eliminarTipoTarea(final TipoTarea tipoTarea,
+      final Continuation<? super Unit> $completion) {
+    return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
+      @Override
+      @NonNull
+      public Unit call() throws Exception {
+        __db.beginTransaction();
+        try {
+          __deletionAdapterOfTipoTarea.handle(tipoTarea);
           __db.setTransactionSuccessful();
           return Unit.INSTANCE;
         } finally {
@@ -180,6 +225,32 @@ public final class TareaDao_Impl implements TareaDao {
   }
 
   @Override
+  public Object eliminarTareasPorTipo(final int tipoId,
+      final Continuation<? super Unit> $completion) {
+    return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
+      @Override
+      @NonNull
+      public Unit call() throws Exception {
+        final SupportSQLiteStatement _stmt = __preparedStmtOfEliminarTareasPorTipo.acquire();
+        int _argIndex = 1;
+        _stmt.bindLong(_argIndex, tipoId);
+        try {
+          __db.beginTransaction();
+          try {
+            _stmt.executeUpdateDelete();
+            __db.setTransactionSuccessful();
+            return Unit.INSTANCE;
+          } finally {
+            __db.endTransaction();
+          }
+        } finally {
+          __preparedStmtOfEliminarTareasPorTipo.release(_stmt);
+        }
+      }
+    }, $completion);
+  }
+
+  @Override
   public Object getTipoTareaPorTitulo(final String titulo,
       final Continuation<? super TipoTarea> $completion) {
     final String _sql = "SELECT * FROM tipostareas WHERE titulo = ? LIMIT 1";
@@ -204,6 +275,38 @@ public final class TareaDao_Impl implements TareaDao {
             _result = new TipoTarea(_tmpId,_tmpTitulo);
           } else {
             _result = null;
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+          _statement.release();
+        }
+      }
+    }, $completion);
+  }
+
+  @Override
+  public Object getAllTiposTareas(final Continuation<? super List<TipoTarea>> $completion) {
+    final String _sql = "SELECT * FROM tipostareas";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
+    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<List<TipoTarea>>() {
+      @Override
+      @NonNull
+      public List<TipoTarea> call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
+          final int _cursorIndexOfTitulo = CursorUtil.getColumnIndexOrThrow(_cursor, "titulo");
+          final List<TipoTarea> _result = new ArrayList<TipoTarea>(_cursor.getCount());
+          while (_cursor.moveToNext()) {
+            final TipoTarea _item;
+            final int _tmpId;
+            _tmpId = _cursor.getInt(_cursorIndexOfId);
+            final String _tmpTitulo;
+            _tmpTitulo = _cursor.getString(_cursorIndexOfTitulo);
+            _item = new TipoTarea(_tmpId,_tmpTitulo);
+            _result.add(_item);
           }
           return _result;
         } finally {
