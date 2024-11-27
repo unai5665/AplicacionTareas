@@ -7,6 +7,13 @@ import com.example.aplicaciontareas.data.TipoTarea
 @Dao
 interface TareaDao {
 
+    @Query("DELETE FROM tareas WHERE id_tipostareas = :tipoId")
+    suspend fun eliminarTareasPorTipo(tipoId: Int)
+
+    @Delete
+    suspend fun eliminarTipoTarea(tipoTarea: TipoTarea)
+
+
     @Insert
     suspend fun insertarTarea(tarea: Tarea): Long
 
