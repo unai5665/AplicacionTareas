@@ -45,6 +45,58 @@ fun TareasScreen(repository: TareasRepository) {
     var mostrarDialogoNuevoTipo by remember { mutableStateOf(false) }
     var menuExpandido by remember { mutableStateOf(false) }
     var mostrarDialogoEditarTipo by remember { mutableStateOf(false) }
+    var tareaSeleccionadaParaCambioTipo by remember { mutableStateOf<TareaDao.TareaConTipo?>(null) }
+
+
+    if (tareaSeleccionadaParaCambioTipo != null) {
+        Dialog(onDismissRequest = { tareaSeleccionadaParaCambioTipo = null }) {
+            Surface(modifier = Modifier.padding(16.dp)) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text("Cambiar Tipo de Tarea", style = TextStyle(fontSize = 18.sp))
+
+                    LazyColumn(modifier = Modifier.fillMaxWidth().padding(top = 16.dp)) {
+                        items(tiposTareas) { tipo ->
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable {
+                                        scope.launch {
+                                            repository.updateTarea(
+                                                Tarea(
+                                                    id = tareaSeleccionadaParaCambioTipo!!.id,
+                                                    titulo = tareaSeleccionadaParaCambioTipo!!.titulo,
+                                                    descripcion = tareaSeleccionadaParaCambioTipo!!.descripcion,
+                                                    id_tipostareas = tipo.id
+                                                )
+                                            )
+                                            // Actualizar la lista de tareas después del cambio
+                                            tareas.clear()
+                                            tareas.addAll(repository.getTareasConTipos())
+
+                                            // Cerrar el diálogo
+                                            tareaSeleccionadaParaCambioTipo = null
+                                        }
+                                    }
+                                    .padding(8.dp)
+                            ) {
+                                Text(text = tipo.titulo, modifier = Modifier.weight(1f))
+                            }
+                        }
+                    }
+                    Row(
+                        horizontalArrangement = Arrangement.End,
+                        modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
+                    ) {
+                        Button(onClick = { tareaSeleccionadaParaCambioTipo = null }) {
+                            Text("Cancelar")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
 
     if (mostrarDialogoEditarTipo && tipoSeleccionado != null) {
         Dialog(onDismissRequest = { mostrarDialogoEditarTipo = false }) {
@@ -342,12 +394,27 @@ fun TareasScreen(repository: TareasRepository) {
                             modifier = Modifier.padding(16.dp)
                         ) {
                             Column(Modifier.weight(1f)) {
-                                Text(
-                                    text = "Tipo: ${tarea.tipo}",
-                                    color = Color.Black,
-                                    style = TextStyle(fontSize = 15.sp),
-                                    modifier = Modifier.padding(end = 15.dp)
-                                )
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    Text(
+                                        text = "Tipo: ${tarea.tipo}",
+                                        color = Color.Black,
+                                        style = TextStyle(fontSize = 15.sp),
+                                        modifier = Modifier.padding(end = 8.dp)
+                                    )
+                                    IconButton(
+                                        onClick = { tareaSeleccionadaParaCambioTipo = tarea },
+                                        modifier = Modifier.size(20.dp) 
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Edit,
+                                            contentDescription = "Cambiar tipo de tarea",
+                                            tint = Color.Gray
+                                        )
+                                    }
+                                }
                                 Text(
                                     text = "Título: ${tarea.titulo}",
                                     color = Color.Black,
@@ -395,6 +462,7 @@ fun TareasScreen(repository: TareasRepository) {
                     }
                 }
             }
+
         }
     }
 }
